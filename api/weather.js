@@ -40,18 +40,13 @@ export default async function handler(req, res) {
     const results = {};
 
     const fetches = locations.map(async (loc) => {
-      const url = new URL('http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst');
-      url.searchParams.set('serviceKey', API_KEY);
-      url.searchParams.set('numOfRows', '60');
-      url.searchParams.set('pageNo', '1');
-      url.searchParams.set('dataType', 'JSON');
-      url.searchParams.set('base_date', baseDate);
-      url.searchParams.set('base_time', baseTime);
-      url.searchParams.set('nx', String(loc.nx));
-      url.searchParams.set('ny', String(loc.ny));
+      // 기상청 API는 serviceKey를 직접 문자열로 넣어야 함 (URL 이중 인코딩 방지)
+      const urlStr = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${API_KEY}&numOfRows=60&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${loc.nx}&ny=${loc.ny}`;
 
-      const response = await fetch(url.toString());
-      const data = await response.json();
+      const response = await fetch(urlStr);
+      const text = await response.text();
+      let data;
+      try { data = JSON.parse(text); } catch { results[loc.name] = { error: 'Invalid response', raw: text.slice(0, 200) }; return; }
 
       const items = data?.response?.body?.items?.item;
       if (!items || items.length === 0) {

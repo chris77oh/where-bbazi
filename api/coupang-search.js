@@ -11,21 +11,28 @@ const DOMAIN = 'https://api-gateway.coupang.com';
 const REQUEST_METHOD = 'GET';
 const PATH = '/v2/providers/affiliate_open_api/apis/openapi/v1/products/search';
 
-function generateHmacSignature(method, path, query, secretKey) {
-  const datetime = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-  // datetime format: YYYYMMDDTHHmmssZ
+function generateAuthorization(method, url, secretKey, accessKey) {
+  const parts = url.split(/\?/);
+  const path = parts[0];
+  const query = parts.length > 1 ? parts[1] : '';
 
-  const message = datetime + method + path + query;
+  // datetime: yyMMddTHHmmssZ (KST → UTC)
+  const datetime = new Date().toISOString()
+    .replace(/[-:]/g, '')
+    .replace(/\.\d{3}/, '')
+    .slice(2); // remove first 2 chars of year (20 → just last 2 digits)
+
+  const message = [datetime, method, path, query].join('\n');
+
   const signature = crypto
     .createHmac('sha256', secretKey)
     .update(message)
     .digest('hex');
 
-  return { datetime, signature };
+  return `CEA algorithm=HmacSHA256, access-key=${accessKey}, signed-date=${datetime}, signature=${signature}`;
 }
 
 module.exports = async function handler(req, res) {
-  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -47,20 +54,18 @@ module.exports = async function handler(req, res) {
 
   try {
     const queryString = `keyword=${encodeURIComponent(keyword)}&limit=${limit}`;
-    const requestPath = `${PATH}?${queryString}`;
+    const requestUrl = `${PATH}?${queryString}`;
 
-    const { datetime, signature } = generateHmacSignature(
+    const authorization = generateAuthorization(
       REQUEST_METHOD,
-      requestPath,
-      '',
-      SECRET_KEY
+      requestUrl,
+      SECRET_KEY,
+      ACCESS_KEY
     );
 
-    const authorization = `CEA algorithm=HmacSHA256, access-key=${ACCESS_KEY}, signed-date=${datetime}, signature=${signature}`;
+    const fullUrl = `${DOMAIN}${requestUrl}`;
 
-    const url = `${DOMAIN}${requestPath}`;
-
-    const response = await fetch(url, {
+    const response = await fetch(fullUrl, {
       method: REQUEST_METHOD,
       headers: {
         'Authorization': authorization,
@@ -70,7 +75,6 @@ module.exports = async function handler(req, res) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Coupang API error:', response.status, errorText);
       return res.status(response.status).json({
         error: 'Coupang API request failed',
         status: response.status,
@@ -80,12 +84,11 @@ module.exports = async function handler(req, res) {
 
     const data = await response.json();
 
-    // 상위 N개 상품만 추출하여 필요한 필드만 반환
     const products = (data.data?.productData || []).slice(0, parseInt(limit)).map((item) => ({
       productName: item.productName,
       productPrice: item.productPrice,
       productImage: item.productImage,
-      productUrl: item.productUrl,         // 제휴 링크
+      productUrl: item.productUrl,
       categoryName: item.categoryName,
       isRocket: item.isRocket,
       isFreeShipping: item.isFreeShipping,
@@ -98,7 +101,6 @@ module.exports = async function handler(req, res) {
       products,
     });
   } catch (err) {
-    console.error('Coupang search error:', err);
     return res.status(500).json({ error: 'Internal server error', message: err.message });
   }
 };
