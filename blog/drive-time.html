@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>빠지까지 어떻게 가나요? — 업체별 길찾기·소요시간 | 빠지 가격 비교</title>
+  <meta name="description" content="가평·춘천 빠지 업체별 네이버 지도 길찾기 바로가기. 서울에서 소요시간, 교통편, 주차 정보까지 한눈에.">
+  <meta name="keywords" content="가평 빠지 가는법,춘천 빠지 교통,빠지 소요시간,가평 빠지 길찾기,빠지 주차">
+  <link rel="canonical" href="https://where-bbazi.vercel.app/blog/drive-time.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="빠지까지 어떻게 가나요? — 업체별 길찾기">
+  <meta property="og:description" content="업체별 네이버 지도 길찾기 바로가기. 서울에서 소요시간, 교통편 안내.">
+  <meta property="og:locale" content="ko_KR">
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./blog.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .drive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .drive-card {
+      background: #fff;
+      border: 1.5px solid #E5E7EB;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+    .drive-card:hover { border-color: #93C5FD; }
+    .dc-name { font-size: 15px; font-weight: 700; color: #1A1A2E; margin-bottom: 2px; }
+    .dc-region { font-size: 12px; color: #9CA3AF; margin-bottom: 8px; }
+    .dc-addr { font-size: 13px; color: #6B7280; margin-bottom: 8px; line-height: 1.5; }
+    .dc-info { font-size: 12px; color: #6B7280; margin-bottom: 10px; }
+    .dc-info span { margin-right: 12px; }
+    .dc-btns { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
+    .dc-btn {
+      display: inline-block;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #fff;
+      transition: opacity 0.15s;
+    }
+    .dc-btn:hover { opacity: 0.85; }
+    .dc-btn-naver { background: #03C75A; }
+    .dc-btn-kakao { background: #FEE500; color: #1A1A2E; }
+    .dc-btn-call { background: #10B981; }
+
+    .transport-card {
+      background: #F8FBFF;
+      border: 1px solid #DBEAFE;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 10px 0;
+    }
+    .transport-card h4 { font-size: 15px; font-weight: 700; color: #0043C8; margin: 0 0 8px; }
+    .transport-card p { font-size: 14px; color: #444; line-height: 1.7; margin: 0; }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">어디빠지</a>
+      <div class="nav-links">
+        <a href="/">가격비교</a>
+        <a href="/blog/" class="active">블로그</a>
+        <a href="/about.html">소개</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="article-content">
+    <a href="/blog/" class="back-link">← 블로그 목록</a>
+
+    <h2>빠지까지 어떻게 가나요?</h2>
+    <p class="article-meta">2026.04.05 · 교통</p>
+
+    <p>업체를 정했는데 어떻게 가야 하지? 각 빠지 업체별 <strong>네이버 지도 길찾기 바로가기</strong>와 교통 정보를 정리했습니다.</p>
+
+    <!-- ===== 교통 개요 ===== -->
+    <h3>서울에서 가는 법</h3>
+
+    <div class="transport-card">
+      <h4>자차 (가장 편리)</h4>
+      <p>서울 → 경춘고속도로 → 가평IC or 춘천IC<br>
+      <strong>가평</strong>: 서울 강남 기준 약 1시간~1시간 20분 / 톨비 3,000~5,000원<br>
+      <strong>춘천</strong>: 서울 강남 기준 약 1시간 30분~2시간 / 톨비 5,000~7,000원<br>
+      주말·성수기 오전에는 경춘고속도로 정체 — <strong>08시 이전 출발</strong> 권장</p>
+    </div>
+
+    <div class="transport-card">
+      <h4>경춘선 (ITX-청춘 / 일반 전철)</h4>
+      <p><strong>ITX-청춘</strong>: 용산역 → 가평역 약 1시간 / 춘천역 약 1시간 20분<br>
+      <strong>경춘선 전철</strong>: 상봉역 → 가평역 약 1시간 20분 / 춘천역 약 1시간 40분<br>
+      하차 후 <strong>픽업 서비스</strong> 이용 (가평역·청평역·강촌역에서 픽업하는 업체 다수)</p>
+    </div>
+
+    <div class="info-box">
+      <p><strong>Tip:</strong> 차 없이 가신다면 픽업 가능 업체를 선택하세요. 춘천 업체 8곳 중 6곳이 픽업을 제공합니다. <a href="/">비교표</a>에서 픽업 필터로 확인하세요.</p>
+    </div>
+
+    <!-- ===== 가평 업체 길찾기 ===== -->
+    <h3>가평 업체 길찾기</h3>
+    <div class="drive-grid">
+      <div class="drive-card">
+        <div class="dc-name">워터플레이 수상레저</div>
+        <div class="dc-region">가평 · 가평읍</div>
+        <div class="dc-addr">가평군 가평읍 이화리 32-2</div>
+        <div class="dc-info"><span>주차 무료</span><span>픽업 가능</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/directions/-/14197930.4053482,4546449.7285776,%EC%9B%8C%ED%84%B0%ED%94%8C%EB%A0%88%EC%9D%B4%20%EC%88%98%EC%83%81%EB%A0%88%EC%A0%80,,/car" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 길찾기</a>
+          <a href="tel:010-3600-4744" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+      <div class="drive-card">
+        <div class="dc-name">아이언 수상레저</div>
+        <div class="dc-region">가평 · 가평읍</div>
+        <div class="dc-addr">가평군 가평읍 북한강변로 576</div>
+        <div class="dc-info"><span>주차 무료</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%EC%95%84%EC%9D%B4%EC%96%B8%20%EC%88%98%EC%83%81%EB%A0%88%EC%A0%80%20%EA%B0%80%ED%8F%89" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+        </div>
+      </div>
+      <div class="drive-card">
+        <div class="dc-name">이비자 수상레저</div>
+        <div class="dc-region">가평 · 가평읍</div>
+        <div class="dc-addr">가평군 가평읍 북한강변로 326-324</div>
+        <div class="dc-info"><span>주차 무료</span><span>토요일 휴무</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%EC%9D%B4%EB%B9%84%EC%9E%90%20%EC%88%98%EC%83%81%EB%A0%88%EC%A0%80%20%EA%B0%80%ED%8F%89" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:0507-1356-6360" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+      <div class="drive-card">
+        <div class="dc-name">선셋740 수상레저</div>
+        <div class="dc-region">가평 · 청평면</div>
+        <div class="dc-addr">가평군 청평면 호반로 740</div>
+        <div class="dc-info"><span>주차 무료</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%EC%84%A0%EC%85%8B740%20%EC%88%98%EC%83%81%EB%A0%88%EC%A0%80" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:010-8380-4536" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+      <div class="drive-card">
+        <div class="dc-name">크라운 수상레저</div>
+        <div class="dc-region">가평 · 청평면</div>
+        <div class="dc-addr">가평군 청평면 호반로 640</div>
+        <div class="dc-info"><span>주차 무료</span><span>픽업 가능</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%ED%81%AC%EB%9D%BC%EC%9A%B4%20%EC%88%98%EC%83%81%EB%A0%88%EC%A0%80%20%EA%B0%80%ED%8F%89" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:010-8959-9628" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+      <div class="drive-card">
+        <div class="dc-name">아토믹 워터파크</div>
+        <div class="dc-region">가평 · 가평읍</div>
+        <div class="dc-addr">가평군 가평읍 북한강변로 970-9</div>
+        <div class="dc-info"><span>주차 무료</span><span>픽업 가능</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%EC%95%84%ED%86%A0%EB%AF%B9%20%EC%9B%8C%ED%84%B0%ED%8C%8C%ED%81%AC%20%EA%B0%80%ED%8F%89" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:0507-1405-1328" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+      <div class="drive-card">
+        <div class="dc-name">캠프통포레스트</div>
+        <div class="dc-region">가평 · 설악면</div>
+        <div class="dc-addr">가평군 설악면 자잠로 377</div>
+        <div class="dc-info"><span>주차 무료</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%EC%BA%A0%ED%94%84%ED%86%B5%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%8A%B8%20%EA%B0%80%ED%8F%89" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:0507-1427-6002" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+      <div class="drive-card">
+        <div class="dc-name">아레나 수상레저</div>
+        <div class="dc-region">가평 · 가평읍</div>
+        <div class="dc-addr">가평군 가평읍 북한강변로 214</div>
+        <div class="dc-info"><span>픽업 가능</span><span>전화 예약 필수</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%EC%95%84%EB%A0%88%EB%82%98%20%EC%88%98%EC%83%81%EB%A0%88%EC%A0%80%20%EA%B0%80%ED%8F%89" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:010-5173-4800" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 춘천 업체 길찾기 ===== -->
+    <h3>춘천 업체 길찾기</h3>
+    <div class="drive-grid">
+      <div class="drive-card">
+        <div class="dc-name">스피드존</div>
+        <div class="dc-region">춘천 · 남산면</div>
+        <div class="dc-addr">춘천시 남산면 방하로 373</div>
+        <div class="dc-info"><span>주차 500대</span><span>연중무휴</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%EC%8A%A4%ED%94%BC%EB%93%9C%EC%A1%B4%20%EC%88%98%EC%83%81%EB%A0%88%EC%A0%80%20%EC%B6%98%EC%B2%9C" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:033-261-8810" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+      <div class="drive-card">
+        <div class="dc-name">비버네선착장</div>
+        <div class="dc-region">춘천 · 남산면</div>
+        <div class="dc-addr">춘천시 남산면 방하로 539</div>
+        <div class="dc-info"><span>주차 무료</span><span>가평역 무료픽업</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%EB%B9%84%EB%B2%84%EB%84%A4%EC%84%A0%EC%B0%A9%EC%9E%A5%20%EC%B6%98%EC%B2%9C" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:0507-1402-4110" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+      <div class="drive-card">
+        <div class="dc-name">블루샤크 수상레저</div>
+        <div class="dc-region">춘천 · 남산면</div>
+        <div class="dc-addr">춘천시 남산면 방하로 1173</div>
+        <div class="dc-info"><span>주차 무료</span><span>픽업 가능</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%EB%B8%94%EB%A3%A8%EC%83%A4%ED%81%AC%20%EC%88%98%EC%83%81%EB%A0%88%EC%A0%80%20%EC%B6%98%EC%B2%9C" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:033-263-0119" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+      <div class="drive-card">
+        <div class="dc-name">나루 수상레저</div>
+        <div class="dc-region">춘천 · 남산면</div>
+        <div class="dc-addr">춘천시 남산면 방하로 804</div>
+        <div class="dc-info"><span>주차 무료</span><span>픽업 가능</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%EB%82%98%EB%A3%A8%20%EC%88%98%EC%83%81%EB%A0%88%EC%A0%80%20%EC%B6%98%EC%B2%9C" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:0507-1376-2106" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+      <div class="drive-card">
+        <div class="dc-name">힐링브릿지</div>
+        <div class="dc-region">춘천 · 남면</div>
+        <div class="dc-addr">춘천시 남면 박암관천길 511-28</div>
+        <div class="dc-info"><span>주차 무료</span><span>픽업 가능</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%ED%9E%90%EB%A7%81%EB%B8%8C%EB%A6%BF%EC%A7%80%20%EC%88%98%EC%83%81%EB%A0%88%EC%A0%80%20%EC%B6%98%EC%B2%9C" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:1811-9377" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+      <div class="drive-card">
+        <div class="dc-name">포시즌 수상레저</div>
+        <div class="dc-region">춘천 · 남산면</div>
+        <div class="dc-addr">춘천시 남산면 방하리 376</div>
+        <div class="dc-info"><span>주차 무료</span><span>4인↑ 가평역 픽업</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%ED%8F%AC%EC%8B%9C%EC%A6%8C%20%EC%88%98%EC%83%81%EB%A0%88%EC%A0%80%20%EC%B6%98%EC%B2%9C" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:0507-1302-4869" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 양평 ===== -->
+    <h3>양평</h3>
+    <div class="drive-grid">
+      <div class="drive-card">
+        <div class="dc-name">토마토 수상레저</div>
+        <div class="dc-region">양평 · 강하면</div>
+        <div class="dc-addr">양평군 강하면 전수리 495-13</div>
+        <div class="dc-info"><span>주차 무료</span></div>
+        <div class="dc-btns">
+          <a href="https://map.naver.com/p/search/%ED%86%A0%EB%A7%88%ED%86%A0%20%EC%88%98%EC%83%81%EB%A0%88%EC%A0%80%20%EC%96%91%ED%8F%89" target="_blank" rel="noopener" class="dc-btn dc-btn-naver">네이버 지도</a>
+          <a href="tel:031-774-7768" class="dc-btn dc-btn-call">전화</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <p><strong>주말·성수기 주의:</strong> 경춘고속도로 가평IC~춘천IC 구간은 주말 오전(08~10시) 극심한 정체. 07시 이전 출발하거나 평일 방문을 추천합니다.</p>
+    </div>
+
+    <div class="cta-box">
+      <p>업체별 가격·시설을 한눈에 비교하세요</p>
+      <a href="/">가격 비교표 바로가기</a>
+    </div>
+
+    <h3>관련 글</h3>
+    <ul>
+      <li><a href="/blog/compare-region.html">가평 vs 춘천 — 어디가 나을까?</a></li>
+      <li><a href="/blog/weather.html">오늘 빠지 가도 될까? — 날씨 정보</a></li>
+      <li><a href="/blog/nearby-spots.html">빠지 + 주변 관광지 당일치기 코스</a></li>
+    </ul>
+
+    <div class="ad-slot"><!-- ad-slot-bottom --></div>
+  </div>
+
+  <div class="blog-footer-nav">
+    <a href="/blog/weather.html">← 이전: 날씨 정보</a>
+    <a href="/blog/">블로그 목록 →</a>
+  </div>
+
+  <footer>
+    <p>© 2026 빠지 가격 비교 · 데이터는 주기적으로 업데이트됩니다</p>
+    <p class="footer-links">
+      <a href="/privacy.html" style="color:#9CA3AF;text-decoration:none;">개인정보처리방침</a>
+      <span style="color:#555;margin:0 8px;">|</span>
+      <a href="/about.html" style="color:#9CA3AF;text-decoration:none;">소개 및 문의</a>
+    </p>
+  </footer>
+
+</body>
+</html>

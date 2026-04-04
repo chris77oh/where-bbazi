@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘 빠지 가도 될까? — 가평·춘천 날씨·물놀이 정보 | 빠지 가격 비교</title>
+  <meta name="description" content="가평·춘천 실시간 날씨, 주간예보, 물놀이 지수를 한눈에. 기상청 데이터 기반으로 빠지 방문 적합 여부를 확인하세요.">
+  <meta name="keywords" content="가평 날씨,춘천 날씨,빠지 날씨,물놀이 날씨,가평 수온,빠지 비">
+  <link rel="canonical" href="https://where-bbazi.vercel.app/blog/weather.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="오늘 빠지 가도 될까? — 가평·춘천 날씨">
+  <meta property="og:description" content="기상청 데이터 기반 날씨 정보와 물놀이 지수.">
+  <meta property="og:locale" content="ko_KR">
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./blog.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .weather-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+    .weather-card {
+      background: #fff;
+      border: 1.5px solid #DBEAFE;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+    }
+    .weather-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1A1A2E;
+      margin: 0 0 4px;
+    }
+    .weather-card .wc-sub {
+      font-size: 12px;
+      color: #9CA3AF;
+      margin-bottom: 14px;
+    }
+    .wc-temp {
+      font-size: 42px;
+      font-weight: 700;
+      color: #0043C8;
+      line-height: 1;
+    }
+    .wc-desc {
+      font-size: 14px;
+      color: #6B7280;
+      margin: 8px 0;
+    }
+    .wc-details {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #6B7280;
+    }
+    .wc-loading {
+      color: #9CA3AF;
+      font-size: 14px;
+      padding: 20px 0;
+    }
+
+    .season-table td, .season-table th {
+      text-align: center;
+    }
+    .season-good { background: #DCFCE7; color: #166534; font-weight: 600; }
+    .season-ok { background: #FEF9C3; color: #854D0E; }
+    .season-bad { background: #FEE2E2; color: #991B1B; }
+
+    .ext-link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .ext-link-card {
+      background: #F8FBFF;
+      border: 1px solid #DBEAFE;
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s;
+    }
+    .ext-link-card:hover { border-color: #93C5FD; }
+    .ext-icon { font-size: 24px; }
+    .ext-title { font-size: 14px; font-weight: 600; color: #1A1A2E; }
+    .ext-desc { font-size: 12px; color: #6B7280; }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">어디빠지</a>
+      <div class="nav-links">
+        <a href="/">가격비교</a>
+        <a href="/blog/" class="active">블로그</a>
+        <a href="/about.html">소개</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="article-content">
+    <a href="/blog/" class="back-link">← 블로그 목록</a>
+
+    <h2>오늘 빠지 가도 될까?</h2>
+    <p class="article-meta">가평·춘천 날씨 · 실시간 업데이트</p>
+
+    <p>빠지 가기 전 날씨 확인은 필수! 기상청 데이터 기반으로 <strong>가평·춘천 현재 날씨</strong>와 방문 적합도를 알려드립니다.</p>
+
+    <!-- ===== 실시간 날씨 ===== -->
+    <h3>현재 날씨</h3>
+    <div class="weather-grid">
+      <div class="weather-card" id="weather-gapyeong">
+        <h4>가평</h4>
+        <div class="wc-sub">경기도 가평군</div>
+        <div class="wc-loading" id="gp-loading">날씨 정보를 불러오는 중...</div>
+        <div id="gp-data" style="display:none;">
+          <div class="wc-temp" id="gp-temp">--°</div>
+          <div class="wc-desc" id="gp-sky">--</div>
+          <div class="wc-details">
+            <span id="gp-rain">강수확률 --%</span>
+            <span id="gp-humidity">습도 --%</span>
+            <span id="gp-wind">풍속 --m/s</span>
+          </div>
+        </div>
+      </div>
+      <div class="weather-card" id="weather-chuncheon">
+        <h4>춘천</h4>
+        <div class="wc-sub">강원도 춘천시</div>
+        <div class="wc-loading" id="cc-loading">날씨 정보를 불러오는 중...</div>
+        <div id="cc-data" style="display:none;">
+          <div class="wc-temp" id="cc-temp">--°</div>
+          <div class="wc-desc" id="cc-sky">--</div>
+          <div class="wc-details">
+            <span id="cc-rain">강수확률 --%</span>
+            <span id="cc-humidity">습도 --%</span>
+            <span id="cc-wind">풍속 --m/s</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <p><strong>날씨 정보가 표시되지 않나요?</strong> 기상청 API 연동 준비 중입니다. 아래 외부 링크에서 정확한 날씨를 직접 확인하세요.</p>
+    </div>
+
+    <!-- ===== 외부 날씨 링크 ===== -->
+    <h3>날씨 확인 바로가기</h3>
+    <div class="ext-link-grid">
+      <a href="https://www.weather.go.kr/w/weather/forecast/short-term.do" target="_blank" rel="noopener" class="ext-link-card">
+        <span class="ext-icon">🌤️</span>
+        <div>
+          <div class="ext-title">기상청 단기예보</div>
+          <div class="ext-desc">가평·춘천 시간대별 기온, 강수확률, 풍속</div>
+        </div>
+      </a>
+      <a href="https://www.weather.go.kr/w/weather/forecast/mid-term.do" target="_blank" rel="noopener" class="ext-link-card">
+        <span class="ext-icon">📅</span>
+        <div>
+          <div class="ext-title">기상청 중기예보</div>
+          <div class="ext-desc">3~10일 후 날씨 전망</div>
+        </div>
+      </a>
+      <a href="https://search.naver.com/search.naver?query=%EA%B0%80%ED%8F%89+%EB%82%A0%EC%94%A8" target="_blank" rel="noopener" class="ext-link-card">
+        <span class="ext-icon">🔍</span>
+        <div>
+          <div class="ext-title">네이버 "가평 날씨" 검색</div>
+          <div class="ext-desc">시간별 예보 + 주간 예보 한눈에</div>
+        </div>
+      </a>
+      <a href="https://search.naver.com/search.naver?query=%EC%B6%98%EC%B2%9C+%EB%82%A0%EC%94%A8" target="_blank" rel="noopener" class="ext-link-card">
+        <span class="ext-icon">🔍</span>
+        <div>
+          <div class="ext-title">네이버 "춘천 날씨" 검색</div>
+          <div class="ext-desc">시간별 예보 + 주간 예보 한눈에</div>
+        </div>
+      </a>
+      <a href="https://www.water.or.kr/" target="_blank" rel="noopener" class="ext-link-card">
+        <span class="ext-icon">💧</span>
+        <div>
+          <div class="ext-title">한국수자원공사 실시간 수위</div>
+          <div class="ext-desc">북한강·소양강 수위, 댐 방류 현황</div>
+        </div>
+      </a>
+      <a href="https://boat.kcg.go.kr/home/wtrlsrActInfo/weathrSpcnwsDclr/infoView1.do" target="_blank" rel="noopener" class="ext-link-card">
+        <span class="ext-icon">⚓</span>
+        <div>
+          <div class="ext-title">기상특보 시 수상레저 활동 기준</div>
+          <div class="ext-desc">풍속·강수량별 활동 가능 여부</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- ===== 빠지 날씨 판단 기준 ===== -->
+    <h3>빠지 가기 좋은 날씨 기준</h3>
+    <table class="blog-table">
+      <thead>
+        <tr><th>조건</th><th>좋음</th><th>보통</th><th>비추</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>기온</strong></td>
+          <td class="season-good">28°C 이상</td>
+          <td class="season-ok">23~27°C</td>
+          <td class="season-bad">22°C 이하</td>
+        </tr>
+        <tr>
+          <td><strong>강수확률</strong></td>
+          <td class="season-good">20% 이하</td>
+          <td class="season-ok">30~50%</td>
+          <td class="season-bad">60% 이상</td>
+        </tr>
+        <tr>
+          <td><strong>풍속</strong></td>
+          <td class="season-good">3m/s 이하</td>
+          <td class="season-ok">4~7m/s</td>
+          <td class="season-bad">8m/s 이상 (운영 중단)</td>
+        </tr>
+        <tr>
+          <td><strong>낙뢰</strong></td>
+          <td class="season-good">없음</td>
+          <td class="season-bad" colspan="2">낙뢰 예보 시 무조건 취소</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <p><strong>핵심:</strong> 가벼운 비는 대부분 운영하지만, <strong>낙뢰·강풍(8m/s 이상)</strong>이면 무조건 운영 중단. 출발 당일 아침에 업체에 전화로 확인하는 게 가장 정확합니다.</p>
+    </div>
+
+    <!-- ===== 월별 시즌 ===== -->
+    <h3>월별 빠지 시즌 가이드</h3>
+    <table class="blog-table season-table">
+      <thead>
+        <tr><th>월</th><th>평균 기온</th><th>수온 체감</th><th>가격</th><th>혼잡도</th><th>추천도</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>5월</td><td>20~24°C</td><td>차가움</td><td>저렴</td><td>한적</td><td class="season-ok">보통</td></tr>
+        <tr><td>6월 초</td><td>24~28°C</td><td>시원</td><td>보통</td><td>보통</td><td class="season-good">좋음</td></tr>
+        <tr><td>6월 말~7월</td><td>27~32°C</td><td>적당</td><td>비쌈</td><td>붐빔</td><td class="season-good">최고</td></tr>
+        <tr><td>8월</td><td>28~34°C</td><td>따뜻</td><td>가장 비쌈</td><td>매우 붐빔</td><td class="season-good">최고</td></tr>
+        <tr><td>9월 초</td><td>24~28°C</td><td>시원</td><td>저렴</td><td>한적</td><td class="season-good">좋음</td></tr>
+        <tr><td>9월 말</td><td>18~23°C</td><td>차가움</td><td>저렴</td><td>한적</td><td class="season-ok">보통</td></tr>
+      </tbody>
+    </table>
+
+    <p>6월 초·9월 초가 <strong>가성비 최고 시즌</strong> — 날씨는 덥고 가격은 성수기보다 저렴하며 대기도 짧습니다.</p>
+
+    <div class="cta-box">
+      <p>날씨 확인했으면, 업체를 골라볼까요?</p>
+      <a href="/">가격 비교표 바로가기</a>
+    </div>
+
+    <h3>관련 글</h3>
+    <ul>
+      <li><a href="/blog/safety-guide.html">물놀이·수상레저 안전수칙</a></li>
+      <li><a href="/blog/prepare.html">빠지 준비물 완벽 체크리스트</a></li>
+      <li><a href="/blog/drive-time.html">빠지까지 어떻게 가나요? — 길찾기</a></li>
+    </ul>
+
+    <div class="ad-slot"><!-- ad-slot-bottom --></div>
+  </div>
+
+  <div class="blog-footer-nav">
+    <a href="/blog/accommodation.html">← 이전: 숙소 추천</a>
+    <a href="/blog/drive-time.html">다음: 길찾기 →</a>
+  </div>
+
+  <footer>
+    <p>© 2026 빠지 가격 비교 · 데이터는 주기적으로 업데이트됩니다</p>
+    <p class="footer-links">
+      <a href="/privacy.html" style="color:#9CA3AF;text-decoration:none;">개인정보처리방침</a>
+      <span style="color:#555;margin:0 8px;">|</span>
+      <a href="/about.html" style="color:#9CA3AF;text-decoration:none;">소개 및 문의</a>
+    </p>
+  </footer>
+
+</body>
+</html>
