@@ -61,6 +61,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://where-bbazi.vercel.app/blog/accommodation.html</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://where-bbazi.vercel.app/blog/deals.html</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://where-bbazi.vercel.app/privacy.html</loc>
     <lastmod>2026-04-04</lastmod>
     <changefreq>yearly</changefreq>
