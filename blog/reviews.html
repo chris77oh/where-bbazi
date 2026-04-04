@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>업체별 블로그 리뷰 모음 — 가평·춘천 빠지 18곳 실제 후기 | 빠지 가격 비교</title>
+  <meta name="description" content="가평·춘천 빠지 18개 업체의 실제 블로그 방문 리뷰를 한곳에서. 예약 전 꼭 확인하세요.">
+  <meta name="keywords" content="가평 빠지 후기,춘천 빠지 리뷰,빠지 추천,수상레저 후기,빠지 블로그">
+  <link rel="canonical" href="https://where-bbazi.vercel.app/blog/reviews.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="업체별 블로그 리뷰 모음 — 빠지 18곳">
+  <meta property="og:description" content="가평·춘천 빠지 18곳 실제 블로그 리뷰를 한곳에서.">
+  <meta property="og:locale" content="ko_KR">
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./blog.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .review-venue {
+      background: #fff;
+      border: 1.5px solid #DBEAFE;
+      border-radius: 14px;
+      margin: 16px 0;
+      overflow: hidden;
+    }
+    .rv-header {
+      background: linear-gradient(90deg, #0043C8, #0078FF);
+      color: #fff;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .rv-header h4 { font-size: 16px; font-weight: 700; margin: 0; }
+    .rv-region { font-size: 12px; opacity: 0.8; }
+    .rv-toggle { font-size: 12px; opacity: 0.7; }
+    .rv-body { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .rv-body.open { max-height: 1000px; padding: 16px 20px; }
+    .rv-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #F0F7FF;
+    }
+    .rv-item:last-child { border-bottom: none; }
+    .rv-title a {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0043C8;
+      text-decoration: none;
+      line-height: 1.5;
+    }
+    .rv-title a:hover { text-decoration: underline; }
+    .rv-desc {
+      font-size: 13px;
+      color: #6B7280;
+      line-height: 1.6;
+      margin: 4px 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .rv-date { font-size: 11px; color: #9CA3AF; }
+    .rv-more {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 13px;
+      color: #0078FF;
+      text-decoration: none;
+    }
+    .rv-more:hover { text-decoration: underline; }
+
+    .region-divider {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1A1A2E;
+      margin: 32px 0 8px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #DBEAFE;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">어디빠지</a>
+      <div class="nav-links">
+        <a href="/">가격비교</a>
+        <a href="/blog/" class="active">블로그</a>
+        <a href="/about.html">소개</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="article-content">
+    <a href="/blog/" class="back-link">← 블로그 목록</a>
+
+    <h2>업체별 블로그 리뷰 모음</h2>
+    <p class="article-meta">2026.04.05 · 리뷰 · 24개 업체 · 총 120건</p>
+
+    <p>18개 빠지 업체의 <strong>실제 블로그 방문 리뷰</strong>를 한곳에 모았습니다. 업체를 클릭하면 리뷰가 펼쳐집니다. 예약 전에 꼭 확인하세요!</p>
+
+    <div class="info-box">
+      <p>네이버 블로그 검색 기반 수집. 업체명을 클릭하면 리뷰 목록이 펼쳐집니다.</p>
+    </div>
+
+    <!-- 리뷰 컨테이너 - JS로 동적 렌더링 -->
+    <div id="reviewContainer">
+      <p style="text-align:center;color:#9CA3AF;padding:40px 0;">리뷰를 불러오는 중...</p>
+    </div>
+
+    <div class="cta-box">
+      <p>마음에 드는 업체를 찾았다면?</p>
+      <a href="/">가격 비교표 바로가기</a>
+    </div>
+
+    <h3>관련 글</h3>
+    <ul>
+      <li><a href="/blog/compare-region.html">가평 vs 춘천 — 어디가 나을까?</a></li>
+      <li><a href="/blog/what-is-bbazi.html">빠지란? 수상레저 완벽 가이드</a></li>
+      <li><a href="/blog/prepare.html">빠지 준비물 완벽 체크리스트</a></li>
+    </ul>
+
+    <div class="ad-slot"><!-- ad-slot-bottom --></div>
+  </div>
+
+  <div class="blog-footer-nav">
+    <a href="/blog/nearby-food.html">← 이전: 주변 맛집</a>
+    <a href="/blog/">블로그 목록 →</a>
+  </div>
+
+  <footer>
+    <p>© 2026 빠지 가격 비교 · 데이터는 주기적으로 업데이트됩니다</p>
+    <p class="footer-links">
+      <a href="/privacy.html" style="color:#9CA3AF;text-decoration:none;">개인정보처리방침</a>
+      <span style="color:#555;margin:0 8px;">|</span>
+      <a href="/about.html" style="color:#9CA3AF;text-decoration:none;">소개 및 문의</a>
+    </p>
+  </footer>
+
+  <script>
+  // 업체 순서 (지역별)
+  const venueOrder = {
+    "가평": [
+      "캠프통포레스트","아토믹 워터파크 수상레저","이비자 수상레저","아이언 수상레저",
+      "크라운 수상레저","선셋740 수상레저","아레나 수상레저","워터플레이 수상레저","빠져수상레저&글램핑",
+      "리버포인트 수상레저","클럽비발디 수상레저","알로하다이노 워터파크","클로버 수상레저"
+    ],
+    "양평": ["토마토 수상레저"],
+    "춘천": [
+      "나루 수상레저","북한강 포시즌 수상레저","비버네선착장","블루샤크 수상레저",
+      "스피드존 수상레저","힐링브릿지 수상레저","칸 수상레저","놀자수상레저",
+      "리버팰리스 수상레저","강촌클래식랜드"
+    ]
+  };
+
+  function formatDate(d) {
+    if (!d || d.length < 8) return '';
+    return d.slice(0,4) + '.' + d.slice(4,6) + '.' + d.slice(6,8);
+  }
+
+  function renderReviews(data) {
+    const container = document.getElementById('reviewContainer');
+    let html = '';
+
+    for (const [region, venues] of Object.entries(venueOrder)) {
+      html += `<div class="region-divider">${region}</div>`;
+
+      for (const name of venues) {
+        const reviews = data.reviews[name];
+        if (!reviews || reviews.length === 0) continue;
+
+        const id = name.replace(/[^가-힣a-zA-Z0-9]/g, '_');
+        html += `<div class="review-venue">
+          <div class="rv-header" onclick="toggleReview('${id}')">
+            <div>
+              <h4>${name}</h4>
+              <span class="rv-region">${region} · 리뷰 ${reviews.length}건</span>
+            </div>
+            <span class="rv-toggle" id="toggle-${id}">▼ 펼치기</span>
+          </div>
+          <div class="rv-body" id="body-${id}">`;
+
+        for (const r of reviews) {
+          html += `<div class="rv-item">
+            <div class="rv-title"><a href="${r.link}" target="_blank" rel="noopener">${r.title}</a></div>
+            <div class="rv-desc">${r.description}</div>
+            <div class="rv-date">${formatDate(r.date)}</div>
+          </div>`;
+        }
+
+        const searchQuery = encodeURIComponent(name + ' 빠지 후기');
+        html += `<a href="https://search.naver.com/search.naver?where=blog&query=${searchQuery}" target="_blank" rel="noopener" class="rv-more">네이버에서 더 많은 리뷰 보기 →</a>`;
+        html += `</div></div>`;
+      }
+    }
+
+    container.innerHTML = html;
+  }
+
+  function toggleReview(id) {
+    const body = document.getElementById('body-' + id);
+    const toggle = document.getElementById('toggle-' + id);
+    if (body.classList.contains('open')) {
+      body.classList.remove('open');
+      toggle.textContent = '▼ 펼치기';
+    } else {
+      body.classList.add('open');
+      toggle.textContent = '▲ 접기';
+    }
+  }
+
+  // 리뷰 데이터 로드
+  fetch('../data/blog_reviews.json')
+    .then(r => r.json())
+    .then(data => renderReviews(data))
+    .catch(() => {
+      document.getElementById('reviewContainer').innerHTML =
+        '<p style="text-align:center;color:#9CA3AF;padding:40px 0;">리뷰 데이터를 불러올 수 없습니다.</p>';
+    });
+  </script>
+
+</body>
+</html>

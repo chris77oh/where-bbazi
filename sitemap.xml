@@ -85,6 +85,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://where-bbazi.vercel.app/blog/reviews.html</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://where-bbazi.vercel.app/privacy.html</loc>
     <lastmod>2026-04-04</lastmod>
     <changefreq>yearly</changefreq>
