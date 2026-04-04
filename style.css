@@ -527,6 +527,31 @@ header h1 {
 }
 .empty-icon { font-size: 44px; margin-bottom: 12px; }
 
+/* ===== DISCLAIMER ===== */
+.disclaimer-section {
+  background: #F9FAFB;
+  border-top: 1px solid #E5E7EB;
+  padding: 20px 16px;
+}
+.disclaimer-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.disclaimer-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.disclaimer-inner p {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #9CA3AF;
+  margin-bottom: 6px;
+}
+
 /* ===== FOOTER ===== */
 footer {
   position: relative;
