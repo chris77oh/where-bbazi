@@ -41,7 +41,7 @@ export default async function handler(req, res) {
 
     const fetches = locations.map(async (loc) => {
       // 기상청 API는 serviceKey를 직접 문자열로 넣어야 함 (URL 이중 인코딩 방지)
-      const urlStr = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${API_KEY}&numOfRows=60&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${loc.nx}&ny=${loc.ny}`;
+      const urlStr = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${API_KEY}&numOfRows=60&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${loc.nx}&ny=${loc.ny}`;
 
       const response = await fetch(urlStr);
       const text = await response.text();
