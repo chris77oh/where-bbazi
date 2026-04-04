@@ -108,10 +108,11 @@ function parkingText(p) {
 
 /* ===== 예약 버튼 ===== */
 function bookingBtn(b) {
-  if (b.naver_booking_url) return `<a href="${b.naver_booking_url}" target="_blank" rel="noopener" class="btn-booking">예약하기 →</a>`;
-  if (b.naver_place_url && b.naver_place_url !== '#') return `<a href="${b.naver_place_url}" target="_blank" rel="noopener" class="btn-naver">네이버</a>`;
-  if (b.website_url) return `<a href="${b.website_url}" target="_blank" rel="noopener" class="btn-naver" style="background:#555">홈페이지</a>`;
-  return '<span class="no-link">준비중</span>';
+  let btns = [];
+  if (b.naver_booking_url) btns.push(`<a href="${b.naver_booking_url}" target="_blank" rel="noopener" class="btn-booking">예약하기 →</a>`);
+  if (b.website_url) btns.push(`<a href="${b.website_url}" target="_blank" rel="noopener" class="btn-website">홈페이지</a>`);
+  if (b.phone) btns.push(`<a href="tel:${b.phone.replace(/[^0-9+]/g,'')}" class="btn-call">📞 전화</a>`);
+  return btns.length ? btns.join('') : '<span class="no-link">준비중</span>';
 }
 
 /* ===== 순위 클래스 ===== */
@@ -126,12 +127,11 @@ function renderTable(list) {
   const rows = list.map((b, i) => {
     const { main, range } = priceText(b);
     const isLowest = i === 0 && currentSort === 'price-asc';
-    const badge = b.needs_review ? '<span class="badge-review">확인 필요</span>' : '';
     const lowestBadge = isLowest ? '<span class="badge-lowest">🏷️ 최저가</span>' : '';
 
     return `<tr>
       <td style="text-align:center;width:36px"><span class="${rankClass(i)}">${i + 1}</span></td>
-      <td><strong>${b.name}</strong>${lowestBadge}${badge}<br><span style="font-size:11px;color:#9CA3AF">${b.city}</span></td>
+      <td><strong>${b.name}</strong>${lowestBadge}<br><span style="font-size:11px;color:#9CA3AF">${b.city}</span></td>
       <td class="price-cell">${main}${range ? `<span class="price-range">${range}</span>` : ''}</td>
       <td style="font-size:13px;color:#6B7280">${b.min_people ? b.min_people + '인 이상' : '-'}</td>
       <td><div class="facility-tags">${toiletTag(b.facilities)}${showerTag(b.facilities)}${changingTag(b.facilities)}</div></td>
@@ -154,7 +154,6 @@ function renderCards(list, isUnverified) {
   if (!list.length) return '';
   return list.map((b, i) => {
     const isLowest = i === 0 && currentSort === 'price-asc' && !isUnverified;
-    const badge = b.needs_review ? '<span class="badge-review">확인 필요</span>' : '';
     const lowestBadge = isLowest ? '<span class="badge-lowest">🏷️ 최저가</span>' : '';
 
     let priceBlock = isUnverified
@@ -167,7 +166,7 @@ function renderCards(list, isUnverified) {
     return `<div class="biz-card">
       <div class="card-rank-name">
         ${!isUnverified ? `<span class="card-rank ${rankClass(i)}">${i + 1}</span>` : ''}
-        <span class="card-name">${b.name}</span>${lowestBadge}${badge}
+        <span class="card-name">${b.name}</span>${lowestBadge}
       </div>
       <div class="card-location">📍 ${b.region} ${b.city}</div>
       ${priceBlock}

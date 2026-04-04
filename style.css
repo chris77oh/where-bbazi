@@ -435,6 +435,22 @@ header h1 {
   transition: background 0.15s;
 }
 .btn-naver:hover { background: #02A84A; }
+.btn-website {
+  display: inline-block; padding: 6px 12px;
+  background: #555; color: #fff;
+  border-radius: 6px; text-decoration: none;
+  font-size: 12px; font-weight: 600; white-space: nowrap;
+  transition: background 0.15s;
+}
+.btn-website:hover { background: #333; }
+.btn-call {
+  display: inline-block; padding: 6px 12px;
+  background: #10B981; color: #fff;
+  border-radius: 6px; text-decoration: none;
+  font-size: 12px; font-weight: 600; white-space: nowrap;
+  transition: background 0.15s;
+}
+.btn-call:hover { background: #059669; }
 .no-link { color: #D1D5DB; font-size: 12px; }
 
 /* 주차 텍스트 */
