@@ -1,7 +1,7 @@
 {
   "meta": {
     "last_updated": "2026-04-05",
-    "total_count": 24,
+    "total_count": 23,
     "version": "1.3"
   },
   "businesses": [
@@ -712,18 +712,18 @@
       "name": "리버포인트 수상레저",
       "region": "경기도",
       "city": "가평군",
-      "address": "경기도 가평군 청평면 호명리",
+      "address": "경기도 가평군 청평면 호명리 291-8",
       "road_address": "경기도 가평군 청평면 호반로 1020-6",
-      "phone": null,
-      "price_per_person": null,
-      "price_min": null,
-      "price_max": null,
+      "phone": "010-4259-8002",
+      "price_per_person": 35000,
+      "price_min": 35000,
+      "price_max": 40000,
       "price_adult": null,
       "price_child": null,
       "min_people": null,
       "max_people": null,
-      "price_note": "가격 미공개. 12년 전통, 500명 동시 수용, 파티문화 원조. 더킹테이블 일~금 10만원/토 20만원. 공식 사이트 또는 전화 문의 필요",
-      "hours": null,
+      "price_note": "놀이기구 1인 35,000원(3~7종), 무제한 +5,000원. 12년 전통, 500명 동시 수용. 더킹테이블 일~금 10만/토 20만. 나이트 바베큐파티, 토요일 버스킹",
+      "hours": "07:00~20:00 (연중무휴)",
       "facilities": {
         "toilet": null,
         "toilet_note": null,
@@ -736,7 +736,7 @@
         "capacity": 70,
         "walk_minutes": 0
       },
-      "pickup": false,
+      "pickup": true,
       "naver_place_url": null,
       "naver_booking_url": null,
       "website_url": "http://www.riverpoint.co.kr",
@@ -868,18 +868,18 @@
       "name": "리버팰리스 수상레저",
       "region": "강원도",
       "city": "춘천시",
-      "address": "강원특별자치도 춘천시 남산면",
+      "address": "강원특별자치도 춘천시 남산면 방하리",
       "road_address": "강원특별자치도 춘천시 남산면 방하로 451",
-      "phone": null,
-      "price_per_person": null,
+      "phone": "010-3835-4777",
+      "price_per_person": 15000,
       "price_min": 4900,
-      "price_max": null,
+      "price_max": 15000,
       "price_adult": null,
       "price_child": null,
       "min_people": null,
       "max_people": null,
-      "price_note": "워터파크 입장권 4,900원~. 가평역·가평터미널 무료 픽업. 상세 가격 예약 플랫폼 확인",
-      "hours": null,
+      "price_note": "워터파크 입장권 1인 15,000원 (할인 시 4,900원). 수상레저+바베큐+숙박 패키지. 만 9세 이상. 매표마감 16:00",
+      "hours": "09:00~18:00 (매표마감 16:00)",
       "facilities": {
         "toilet": null,
         "toilet_note": null,
@@ -902,44 +902,5 @@
       "lat": 37.8443,
       "lng": 127.539
     },
-    {
-      "id": "gangwon-10",
-      "name": "강촌클래식랜드",
-      "region": "강원도",
-      "city": "춘천시",
-      "address": "강원특별자치도 춘천시 남산면",
-      "road_address": "강원특별자치도 춘천시 남산면 북한강변로 221",
-      "phone": null,
-      "price_per_person": null,
-      "price_min": null,
-      "price_max": null,
-      "price_adult": null,
-      "price_child": null,
-      "min_people": null,
-      "max_people": null,
-      "price_note": "가격 미공개. 전화 문의 필요",
-      "hours": null,
-      "facilities": {
-        "toilet": null,
-        "toilet_note": null,
-        "shower": null,
-        "shower_type": null,
-        "changing_room": null
-      },
-      "parking": {
-        "available": null,
-        "capacity": null,
-        "walk_minutes": null
-      },
-      "pickup": false,
-      "naver_place_url": null,
-      "naver_booking_url": null,
-      "website_url": null,
-      "last_updated": "2026-04-05",
-      "verified": false,
-      "needs_review": true,
-      "lat": 37.8443,
-      "lng": 127.539
-    }
   ]
 }
