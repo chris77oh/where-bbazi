@@ -11,6 +11,11 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'API key not configured' });
   }
 
+  // 디버그: 키 길이와 앞 4자만 확인 (보안상 전체 노출 안 함)
+  if (req.query?.debug === '1') {
+    return res.status(200).json({ keyLen: API_KEY.length, keyPrefix: API_KEY.slice(0,4), keyHasSpace: API_KEY !== API_KEY.trim() });
+  }
+
   // 기상청 base_date / base_time 계산 (KST)
   const now = new Date(Date.now() + 9 * 60 * 60 * 1000); // UTC → KST
   let baseDate = now.toISOString().slice(0, 10).replace(/-/g, '');
