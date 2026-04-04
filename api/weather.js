@@ -1,7 +1,7 @@
 // Vercel Serverless Function — 기상청 초단기예보 프록시
 // 환경변수 KMA_API_KEY 를 Vercel 대시보드에서 설정할 것
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=300'); // 10분 캐시
