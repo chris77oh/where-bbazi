@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://where-bbazi.github.io/sitemap.xml

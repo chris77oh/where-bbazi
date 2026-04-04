@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>빠지 가격 비교 | 가평·춘천 수상레저 업체 최저가 한눈에</title>
+  <meta name="description" content="가평·춘천·양평 18개 빠지(수상레저) 업체의 1인 가격, 시설(샤워실·탈의실·주차), 픽업 정보를 한눈에 비교하세요. 최저가순 정렬로 가장 저렴한 빠지를 바로 찾을 수 있습니다.">
+  <meta name="keywords" content="빠지 가격 비교,가평 빠지,가평 빠지 가격,춘천 빠지,수상레저 가격 비교,가평 빠지 추천,빠지 당일치기,가평 수상레저,빠지 저렴한 곳,빠지 샤워실,빠지 주차">
+  <link rel="canonical" href="https://where-bbazi.github.io/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="빠지 가격 비교 | 가평·춘천 수상레저 최저가">
+  <meta property="og:description" content="18개 빠지 업체 가격·시설·주차를 한눈에 비교. 최저가순 정렬 지원.">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="빠지 가격 비교">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="빠지 가격 비교 | 가평·춘천 수상레저 최저가">
+  <meta name="twitter:description" content="18개 빠지 업체 가격·시설·주차를 한눈에 비교. 최저가순 정렬 지원.">
+
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- JSON-LD 구조화 데이터 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "빠지 가격 비교",
+    "url": "https://where-bbazi.github.io/",
+    "description": "가평·춘천·양평 수상레저 빠지 업체 가격 비교 사이트",
+    "applicationCategory": "TravelApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ko",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "KRW",
+      "lowPrice": 9900,
+      "highPrice": 89900,
+      "offerCount": 18
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <div class="header-inner">
+      <h1>빠지 가격 비교</h1>
+      <p class="header-sub">가평 · 춘천 · 양평 수상레저 업체 가격 · 시설 · 주차를 한눈에 비교</p>
+    </div>
+  </header>
+
+  <!-- 쿠팡파트너스 캐러셀 배너 -->
+  <section class="coupang-section">
+    <div class="coupang-inner">
+      <p class="coupang-label">🛒 빠지 준비물 최저가 — 구명조끼 · 래쉬가드 · 방수팩 · 아쿠아슈즈</p>
+      <div class="coupang-carousel-wrap">
+        <script src="https://ads-partners.coupang.com/g.js"></script>
+        <script>
+          new PartnersCoupang.G({"id":977370,"template":"carousel","trackingCode":"AF7526987","width":"680","height":"140","tsource":""});
+        </script>
+      </div>
+      <p class="coupang-disclosure">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+    </div>
+  </section>
+
+  <!-- 준비물 체크리스트 -->
+  <details class="checklist-wrap">
+    <summary>🎒 빠지 필수 준비물 체크리스트 (클릭해서 보기)</summary>
+    <div class="checklist-grid">
+      <div class="checklist-item essential">
+        <span class="ci-icon">🔒</span>
+        <span class="ci-label">방수팩</span>
+        <span class="ci-note">핸드폰 필수</span>
+      </div>
+      <div class="checklist-item essential">
+        <span class="ci-icon">🦺</span>
+        <span class="ci-label">구명조끼</span>
+        <span class="ci-note">대부분 업체 제공</span>
+      </div>
+      <div class="checklist-item essential">
+        <span class="ci-icon">👕</span>
+        <span class="ci-label">여벌 옷 · 속옷</span>
+        <span class="ci-note">물에 젖음</span>
+      </div>
+      <div class="checklist-item">
+        <span class="ci-icon">🩴</span>
+        <span class="ci-label">슬리퍼 · 아쿠아슈즈</span>
+        <span class="ci-note">신발 젖음 주의</span>
+      </div>
+      <div class="checklist-item">
+        <span class="ci-icon">🧴</span>
+        <span class="ci-label">선크림</span>
+        <span class="ci-note">방수형 권장</span>
+      </div>
+      <div class="checklist-item">
+        <span class="ci-icon">🏊</span>
+        <span class="ci-label">래쉬가드</span>
+        <span class="ci-note">햇빛·긁힘 방지</span>
+      </div>
+      <div class="checklist-item">
+        <span class="ci-icon">🕶️</span>
+        <span class="ci-label">선글라스</span>
+        <span class="ci-note">끈 연결 권장</span>
+      </div>
+      <div class="checklist-item">
+        <span class="ci-icon">🪥</span>
+        <span class="ci-label">수건</span>
+        <span class="ci-note">샤워실 없는 곳 대비</span>
+      </div>
+    </div>
+  </details>
+
+  <!-- 필터 & 검색 (sticky) -->
+  <section class="filter-section">
+    <div class="filter-inner">
+
+      <!-- 지역 필터 -->
+      <div class="filter-row">
+        <span class="filter-label">지역</span>
+        <div class="region-filters" id="regionFilters">
+          <button class="filter-btn active" data-region="전체">전체</button>
+          <button class="filter-btn" data-region="경기도">경기도</button>
+          <button class="filter-btn" data-region="강원도">강원도</button>
+          <button class="filter-btn" data-region="충청북도">충청북도</button>
+          <button class="filter-btn" data-region="기타">기타</button>
+        </div>
+      </div>
+
+      <!-- 시설 필터 -->
+      <div class="filter-row">
+        <span class="filter-label">시설</span>
+        <div class="facility-filters" id="facilityFilters">
+          <button class="fac-btn" data-fac="shower">🚿 샤워실</button>
+          <button class="fac-btn" data-fac="changing_room">👔 탈의실</button>
+          <button class="fac-btn" data-fac="parking">🅿️ 주차</button>
+          <button class="fac-btn" data-fac="pickup">🚌 픽업</button>
+        </div>
+      </div>
+
+      <!-- 검색 & 정렬 -->
+      <div class="filter-row">
+        <span class="filter-label sr-only">검색</span>
+        <div class="search-sort-row">
+          <input type="search" id="searchInput" placeholder="🔍 업체명 · 지역 검색" class="search-input" autocomplete="off">
+          <select id="sortSelect" class="sort-select">
+            <option value="price-asc">가격 낮은순</option>
+            <option value="price-desc">가격 높은순</option>
+            <option value="name-asc">이름순</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 뷰 토글 -->
+  <div class="view-toggle-wrap">
+    <div class="view-toggle">
+      <button class="view-btn active" id="tableViewBtn" onclick="setView('table')">📋 테이블</button>
+      <button class="view-btn" id="mapViewBtn" onclick="setView('map')">🗺️ 지도</button>
+    </div>
+  </div>
+
+  <!-- 결과 요약 -->
+  <div class="result-summary">
+    <span id="resultCount">0</span>개 업체
+    <span id="lastUpdated" class="last-updated"></span>
+  </div>
+
+  <!-- 메인 -->
+  <main class="main-content">
+    <!-- 테이블 뷰 -->
+    <div id="tableArea">
+      <div id="tableContainer"></div>
+      <div class="card-list" id="cardContainer"></div>
+      <details class="unverified-section" id="unverifiedSection" style="display:none">
+        <summary id="unverifiedSummary">가격 미확인 업체 보기</summary>
+        <div class="card-list" id="unverifiedContainer"></div>
+      </details>
+    </div>
+
+    <!-- 지도 뷰 -->
+    <div id="mapArea" style="display:none">
+      <div id="mapContainer"></div>
+    </div>
+  </main>
+
+  <!-- 쿠팡트래블 가평 숙소 배너 -->
+  <section class="travel-banner-section">
+    <div class="travel-banner-inner">
+      <div class="travel-banner-text">
+        <span class="travel-banner-icon">🏨</span>
+        <div>
+          <p class="travel-banner-title">빠지 다음엔 숙소도 알아보셨나요?</p>
+          <p class="travel-banner-sub">가평 숙소 · 쿠팡트래블 최저가 확인</p>
+        </div>
+      </div>
+      <a href="https://link.coupang.com/a/egsLG2"
+        target="_blank" rel="noopener"
+        class="travel-banner-btn">최저가 보기 →</a>
+    </div>
+    <p class="coupang-disclosure">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  </section>
+
+  <!-- 쿠팡파트너스 하단 캐러셀 배너 -->
+  <section class="coupang-section">
+    <div class="coupang-inner">
+      <div class="coupang-carousel-wrap">
+        <script src="https://ads-partners.coupang.com/g.js"></script>
+        <script>
+          new PartnersCoupang.G({"id":977396,"template":"carousel","trackingCode":"AF7526987","width":"680","height":"140","tsource":""});
+        </script>
+      </div>
+      <p class="coupang-disclosure">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer>
+    <p>© 2026 빠지 가격 비교 · 데이터는 주기적으로 업데이트됩니다</p>
+    <p>가격 정보는 업체 사정에 따라 변동될 수 있으니 예약 전 반드시 확인하세요</p>
+    <p class="footer-disclaimer">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="./data/data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
