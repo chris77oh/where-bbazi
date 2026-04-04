@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://where-bbazi.github.io/sitemap.xml
+Sitemap: https://where-bbazi.vercel.app/sitemap.xml
