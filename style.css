@@ -579,6 +579,24 @@ footer::before {
   .checklist-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* ===== 아쿠아슈즈 주의사항 ===== */
+.aqua-notice {
+  background: #FEF3C7;
+  border-bottom: 1px solid #FDE68A;
+  padding: 12px 16px;
+}
+.aqua-notice-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.aqua-notice-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.aqua-notice-title { font-size: 13px; font-weight: 700; color: #92400E; margin-bottom: 2px; }
+.aqua-notice-desc { font-size: 12px; color: #78350F; line-height: 1.6; }
+.aqua-notice-desc strong { color: #92400E; }
+
 @media (min-width: 769px) {
   .filter-inner { flex-direction: column; }
   .search-sort-row { max-width: 500px; }

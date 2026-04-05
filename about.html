@@ -113,6 +113,38 @@
       font-size: 13px;
       color: #92400E;
     }
+    .about-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .about-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      background: #F8FBFF;
+      border-radius: 10px;
+      border: 1px solid #DBEAFE;
+    }
+    .about-feature-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .about-feature-item strong {
+      font-size: 15px;
+      color: #1A1A2E;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .about-feature-item p {
+      font-size: 13px;
+      color: #6B7280;
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
   </style>
   <!-- Google Analytics (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLJND9ESLF"></script>
@@ -158,8 +190,8 @@
 
     <h3>어디빠지란?</h3>
     <div class="about-card">
-      <p><strong>어디빠지(빠지 가격 비교)</strong>는 가평·춘천·양평 지역의 빠지(수상레저) 업체 정보를 한곳에서 비교할 수 있도록 만든 서비스입니다.</p>
-      <p>여름 시즌이 되면 "어디 빠지가 저렴하지?", "샤워실 있는 빠지는 어디야?" 같은 고민을 하게 됩니다. 업체마다 홈페이지를 하나하나 확인하는 번거로움 없이, 가격·시설·위치를 한눈에 비교하세요.</p>
+      <p style="font-size:16px;line-height:1.9;margin-bottom:14px;"><strong>어디빠지</strong>는 가평·춘천·양평 지역의 빠지(수상레저) 업체 정보를 <strong>한곳에서 비교</strong>할 수 있는 서비스입니다.</p>
+      <p style="font-size:15px;line-height:1.9;color:#333;">"어디 빠지가 저렴하지?", "샤워실 있는 빠지는?"<br>업체마다 홈페이지를 뒤지는 번거로움 없이,<br><strong>가격·시설·위치를 한눈에 비교</strong>하세요.</p>
     </div>
 
     <div class="stat-grid">
@@ -169,7 +201,7 @@
       </div>
       <div class="stat-item">
         <span class="stat-number">3</span>
-        <span class="stat-label">지역 (가평·춘천·양평)</span>
+        <span class="stat-label">지역</span>
       </div>
       <div class="stat-item">
         <span class="stat-number">6</span>
@@ -177,13 +209,37 @@
       </div>
     </div>
 
-    <h3>제공 정보</h3>
-    <ul>
-      <li><strong>가격 비교</strong> — 1인 기준 최저가부터 비교, 최저가순 정렬</li>
-      <li><strong>시설 정보</strong> — 샤워실, 탈의실, 주차, 픽업 여부</li>
-      <li><strong>지도 보기</strong> — 업체 위치를 지도에서 한눈에 확인</li>
-      <li><strong>빠른 연결</strong> — 전화 문의, 홈페이지 바로가기</li>
-    </ul>
+    <h3>이런 걸 비교할 수 있어요</h3>
+    <div class="about-features">
+      <div class="about-feature-item">
+        <span class="about-feature-icon">💰</span>
+        <div>
+          <strong>가격 비교</strong>
+          <p>1인 기준 최저가부터 정렬, 시즌별 가격 안내</p>
+        </div>
+      </div>
+      <div class="about-feature-item">
+        <span class="about-feature-icon">🚿</span>
+        <div>
+          <strong>시설 정보</strong>
+          <p>샤워실, 탈의실, 주차, 픽업 여부 한눈에</p>
+        </div>
+      </div>
+      <div class="about-feature-item">
+        <span class="about-feature-icon">🗺️</span>
+        <div>
+          <strong>지도 보기</strong>
+          <p>업체 위치를 지도에서 한눈에 확인</p>
+        </div>
+      </div>
+      <div class="about-feature-item">
+        <span class="about-feature-icon">📞</span>
+        <div>
+          <strong>빠른 연결</strong>
+          <p>전화 문의, 홈페이지 바로가기</p>
+        </div>
+      </div>
+    </div>
 
     <h3>데이터 안내 및 면책</h3>
 
