@@ -3,4 +3,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://where-bbazi.vercel.app/sitemap.xml
+Sitemap: https://where-bbazi.kr/sitemap.xml
