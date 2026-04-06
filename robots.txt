@@ -1,4 +1,4 @@
-#DaumWebMasterTool:09a10ffdeeae3c3fba9323aeca1c1bff7fa48f32593cc119d5f2e47578539c77:idT0H8ZsieFSnPR3Q3vAWA==
+#DaumWebMasterTool:78176829fc1e3b054d974a94d659502671cc995c524484ca3a8b948c7adabe0b:N+z8ZHuz9tbabRU+Gt0kQQ==
 
 User-agent: *
 Allow: /
