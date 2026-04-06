@@ -109,6 +109,17 @@ header::after {
   padding: 80px 24px 0;
 }
 
+/* Display copy — catchy line below H1 */
+.header-display {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(48px, 7.5vw, 88px);
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
 /* Kicker — label above headline */
 .header-kicker {
   display: inline-block;
@@ -124,16 +135,15 @@ header::after {
   margin-bottom: 28px;
 }
 
-/* Main headline — dramatic serif */
+/* Main headline — SEO H1, subdued visually */
 header h1 {
-  font-family: 'Noto Serif KR', serif;
-  font-size: clamp(40px, 6vw, 72px);
-  font-weight: 700;
-  color: #FFFFFF;
-  letter-spacing: -0.04em;
-  line-height: 1.08;
-  margin-bottom: 20px;
-  text-wrap: balance;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
 .header-sub {
