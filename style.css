@@ -3,11 +3,10 @@
 
 body {
   font-family: 'Noto Sans KR', sans-serif;
-  background: linear-gradient(180deg, #EFF6FF 0%, #DBEAFE 30%, #EFF6FF 60%, #E0F2FE 100%);
-  background-attachment: fixed;
-  color: #1A1A2E;
+  background: #F9F7F4;
+  color: #1A1612;
   min-height: 100vh;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 /* ===== HEADER (hero image + overlay + wave) ===== */
@@ -15,40 +14,34 @@ header {
   position: relative;
   background: url('./images/hero-bg.png') center/cover no-repeat;
   color: #fff;
-  padding: 52px 16px 64px;
-  text-align: center;
+  padding: 72px 16px 72px;
   overflow: hidden;
 }
 header::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(0,67,200,0.72), rgba(0,120,255,0.55));
+  background: linear-gradient(135deg, rgba(8,8,8,0.62), rgba(8,8,8,0.32));
   z-index: 1;
 }
-header::after {
-  content: '';
-  position: absolute;
-  bottom: -2px; left: 0; right: 0;
-  height: 40px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40'%3E%3Cpath fill='%23EFF6FF' d='M0,20 C360,45 720,-5 1080,20 C1260,32 1380,28 1440,20 L1440,40 L0,40Z'/%3E%3C/svg%3E") bottom/cover no-repeat;
-  z-index: 2;
-}
-.header-inner { max-width: 1040px; margin: 0 auto; position: relative; z-index: 3; }
+header::after { display: none; }
+.header-inner { max-width: 1040px; margin: 0 auto; position: relative; z-index: 3; text-align: left; }
 header h1 {
-  font-size: 32px; font-weight: 700; margin-bottom: 8px;
-  letter-spacing: -0.5px;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  font-family: 'Noto Serif KR', serif;
+  font-size: 38px; font-weight: 700; margin-bottom: 12px;
+  letter-spacing: -0.03em; line-height: 1.25;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 .header-sub {
-  font-size: 14px; opacity: 0.92;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.25);
+  font-size: 15px; opacity: 0.82;
+  font-weight: 300; letter-spacing: 0.01em;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
 /* ===== COUPANG 배너 (캐러셀) ===== */
 .coupang-section {
   background: #fff;
-  border-bottom: 1px solid #DBEAFE;
+  border-bottom: 1px solid #D0E8E2;
   padding: 14px 16px 10px;
 }
 .coupang-inner { max-width: 720px; margin: 0 auto; text-align: center; }
@@ -58,7 +51,7 @@ header h1 {
 
 /* ===== 쿠팡트래블 숙소 배너 ===== */
 .travel-banner-section {
-  background: linear-gradient(135deg, #FF6B35, #FF9500);
+  background: #1B4D3E;
   padding: 18px 20px 10px;
   text-align: center;
 }
@@ -84,8 +77,8 @@ header h1 {
   display: inline-block;
   padding: 10px 20px;
   background: #fff;
-  color: #FF6B35;
-  border-radius: 24px;
+  color: #1B4D3E;
+  border-radius: 4px;
   text-decoration: none;
   font-size: 14px;
   font-weight: 700;
@@ -99,7 +92,7 @@ header h1 {
 /* ===== 쿠팡 사이드 iframe ===== */
 .coupang-side-section {
   background: #fff;
-  border-top: 1px solid #DBEAFE;
+  border-top: 1px solid #D0E8E2;
   padding: 20px 16px;
   text-align: center;
 }
@@ -107,21 +100,21 @@ header h1 {
 /* ===== 준비물 체크리스트 ===== */
 .checklist-wrap {
   background: #fff;
-  border-bottom: 1px solid #DBEAFE;
+  border-bottom: 1px solid #D0E8E2;
 }
 .checklist-wrap > summary {
   padding: 12px 20px;
   cursor: pointer;
   font-size: 13px;
   font-weight: 500;
-  color: #0043C8;
+  color: #1B4D3E;
   list-style: none;
   user-select: none;
 }
 .checklist-wrap > summary::-webkit-details-marker { display: none; }
 .checklist-wrap > summary::before { content: '▶  '; font-size: 10px; }
 .checklist-wrap[open] > summary::before { content: '▼  '; }
-.checklist-wrap > summary:hover { background: #F0F7FF; }
+.checklist-wrap > summary:hover { background: #EFF5F2; }
 
 .checklist-grid {
   display: grid;
@@ -137,29 +130,29 @@ header h1 {
   align-items: center;
   gap: 4px;
   padding: 12px 8px;
-  background: #F8FBFF;
+  background: #F7F9F8;
   border-radius: 10px;
-  border: 1.5px solid #DBEAFE;
+  border: 1.5px solid #D0E8E2;
   text-align: center;
 }
 .checklist-item.essential {
-  border-color: #0078FF;
-  background: #EFF6FF;
+  border-color: #1B4D3E;
+  background: #F0F6F3;
 }
 .ci-icon { font-size: 22px; }
 .ci-label { font-size: 13px; font-weight: 600; }
 .ci-note { font-size: 11px; color: #6B7280; }
-.checklist-item.essential .ci-label { color: #0043C8; }
+.checklist-item.essential .ci-label { color: #1B4D3E; }
 
 /* ===== FILTER (sticky) ===== */
 .filter-section {
   background: #fff;
-  border-bottom: 2px solid #DBEAFE;
+  border-bottom: 2px solid #D0E8E2;
   padding: 12px 16px;
   position: sticky;
   top: 48px;
   z-index: 20;
-  box-shadow: 0 3px 10px rgba(0, 78, 255, 0.08);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
 }
 .filter-inner {
   max-width: 1040px;
@@ -188,25 +181,25 @@ header h1 {
 .region-filters { display: flex; gap: 6px; flex-wrap: wrap; }
 .filter-btn {
   padding: 5px 13px;
-  border: 1.5px solid #BFDBFE;
+  border: 1.5px solid #C4DDD7;
   border-radius: 20px;
   background: #fff;
   cursor: pointer;
   font-size: 13px;
   font-family: 'Noto Sans KR', sans-serif;
-  color: #3B82F6;
+  color: #4A8F7F;
   font-weight: 500;
   transition: all 0.15s;
 }
-.filter-btn:hover { background: #EFF6FF; }
-.filter-btn.active { background: #0078FF; color: #fff; border-color: #0078FF; }
+.filter-btn:hover { background: #F0F6F3; }
+.filter-btn.active { background: #1B4D3E; color: #fff; border-color: #1B4D3E; }
 
 /* 시설 필터 버튼 */
 .facility-filters { display: flex; gap: 6px; flex-wrap: wrap; }
 .fac-btn {
-  padding: 5px 12px;
+  padding: 10px 12px;
   border: 1.5px solid #E5E7EB;
-  border-radius: 20px;
+  border-radius: 4px;
   background: #fff;
   cursor: pointer;
   font-size: 12px;
@@ -216,24 +209,24 @@ header h1 {
   transition: all 0.15s;
 }
 .fac-btn:hover { background: #F3F4F6; }
-.fac-btn.active { background: #1D4ED8; color: #fff; border-color: #1D4ED8; }
+.fac-btn.active { background: #1B4D3E; color: #fff; border-color: #1B4D3E; }
 
 /* 검색 & 정렬 */
 .search-sort-row { display: flex; gap: 8px; flex: 1; }
 .search-input {
   flex: 1;
   padding: 8px 13px;
-  border: 1.5px solid #BFDBFE;
+  border: 1.5px solid #C4DDD7;
   border-radius: 8px;
   font-size: 14px;
   font-family: 'Noto Sans KR', sans-serif;
   outline: none;
   transition: border-color 0.15s;
 }
-.search-input:focus { border-color: #0078FF; }
+.search-input:focus { border-color: #1B4D3E; }
 .sort-select {
   padding: 8px 10px;
-  border: 1.5px solid #BFDBFE;
+  border: 1.5px solid #C4DDD7;
   border-radius: 8px;
   font-size: 13px;
   font-family: 'Noto Sans KR', sans-serif;
@@ -246,7 +239,7 @@ header h1 {
 /* ===== 뷰 토글 ===== */
 .view-toggle-wrap {
   background: #fff;
-  border-bottom: 1px solid #DBEAFE;
+  border-bottom: 1px solid #D0E8E2;
   padding: 10px 16px;
 }
 .view-toggle {
@@ -256,8 +249,8 @@ header h1 {
   gap: 6px;
 }
 .view-btn {
-  padding: 7px 18px;
-  border: 1.5px solid #BFDBFE;
+  padding: 10px 18px;
+  border: 1.5px solid #C4DDD7;
   border-radius: 8px;
   background: #fff;
   cursor: pointer;
@@ -267,24 +260,24 @@ header h1 {
   color: #6B7280;
   transition: all 0.15s;
 }
-.view-btn:hover { background: #F0F7FF; color: #0043C8; }
-.view-btn.active { background: #0043C8; color: #fff; border-color: #0043C8; }
+.view-btn:hover { background: #EFF5F2; color: #1B4D3E; }
+.view-btn.active { background: #1B4D3E; color: #fff; border-color: #1B4D3E; }
 
 /* ===== 지도 컨테이너 ===== */
 #mapContainer {
   height: 540px;
-  border-radius: 14px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0,78,255,0.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
   margin-top: 12px;
 }
 
 /* Leaflet 커스텀 마커 */
 .map-price-marker {
-  background: #0043C8;
+  background: #1B4D3E;
   color: #fff;
   padding: 4px 9px;
-  border-radius: 14px;
+  border-radius: 3px;
   font-size: 12px;
   font-weight: 700;
   white-space: nowrap;
@@ -299,7 +292,7 @@ header h1 {
   left: 50%;
   transform: translateX(-50%);
   border: 5px solid transparent;
-  border-top-color: #0043C8;
+  border-top-color: #1B4D3E;
 }
 .map-price-marker.lowest {
   background: #FF6B00;
@@ -316,11 +309,11 @@ header h1 {
 
 /* 지도 팝업 */
 .map-popup-name { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
-.map-popup-price { color: #0043C8; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+.map-popup-price { color: #1B4D3E; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
 .map-popup-info { font-size: 12px; color: #6B7280; margin-bottom: 8px; line-height: 1.6; }
 .map-popup-link {
   display: inline-block; padding: 5px 12px;
-  background: #0043C8; color: #fff;
+  background: #1B4D3E; color: #fff;
   border-radius: 6px; text-decoration: none;
   font-size: 12px; font-weight: 600;
 }
@@ -357,14 +350,14 @@ header h1 {
   background: rgba(255,255,255,0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-radius: 14px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 78, 255, 0.10);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
   border: 1px solid rgba(255,255,255,0.6);
   margin-top: 12px;
 }
 .compare-table thead tr {
-  background: linear-gradient(90deg, #0043C8, #0078FF);
+  background: #1A1612;
   color: #fff;
 }
 .compare-table th {
@@ -378,10 +371,10 @@ header h1 {
 .compare-table td {
   padding: 13px 14px;
   font-size: 14px;
-  border-bottom: 1px solid #F0F7FF;
+  border-bottom: 1px solid #EFF5F2;
   vertical-align: middle;
 }
-.compare-table tbody tr:hover { background: #F8FCFF; }
+.compare-table tbody tr:hover { background: #F7F9F8; }
 .compare-table tbody tr:last-child td { border-bottom: none; }
 
 /* 순위 */
@@ -391,7 +384,7 @@ header h1 {
 .rank-3 { color: #F59E0B; font-weight: 600; }
 
 /* 가격 */
-.price-cell { font-weight: 700; color: #0043C8; font-size: 15px; white-space: nowrap; }
+.price-cell { font-weight: 700; color: #1B4D3E; font-size: 15px; white-space: nowrap; letter-spacing: -0.01em; }
 .price-range { display: block; font-size: 11px; color: #9CA3AF; font-weight: 400; margin-top: 1px; }
 
 /* 뱃지 */
@@ -411,7 +404,7 @@ header h1 {
 .ftag-toilet-building { background: #DCFCE7; color: #166534; }
 .ftag-toilet-shared   { background: #FEF9C3; color: #854D0E; }
 .ftag-toilet-portable { background: #FEE2E2; color: #991B1B; }
-.ftag-shower-free     { background: #DBEAFE; color: #1E40AF; }
+.ftag-shower-free     { background: #D0E8E2; color: #1B4D3E; }
 .ftag-shower-paid     { background: #EDE9FE; color: #5B21B6; }
 .ftag-changing        { background: #F0FDF4; color: #166534; }
 .ftag-parking         { background: #F0F9FF; color: #0369A1; }
@@ -420,15 +413,15 @@ header h1 {
 
 /* 버튼 */
 .btn-booking {
-  display: inline-block; padding: 6px 12px;
-  background: #0078FF; color: #fff;
+  display: inline-block; padding: 11px 16px;
+  background: #1B4D3E; color: #fff;
   border-radius: 6px; text-decoration: none;
   font-size: 12px; font-weight: 600; white-space: nowrap;
   transition: background 0.15s;
 }
-.btn-booking:hover { background: #0055CC; }
+.btn-booking:hover { background: #163D30; }
 .btn-naver {
-  display: inline-block; padding: 6px 12px;
+  display: inline-block; padding: 11px 16px;
   background: #03C75A; color: #fff;
   border-radius: 6px; text-decoration: none;
   font-size: 12px; font-weight: 600; white-space: nowrap;
@@ -436,7 +429,7 @@ header h1 {
 }
 .btn-naver:hover { background: #02A84A; }
 .btn-website {
-  display: inline-block; padding: 6px 12px;
+  display: inline-block; padding: 11px 16px;
   background: #555; color: #fff;
   border-radius: 6px; text-decoration: none;
   font-size: 12px; font-weight: 600; white-space: nowrap;
@@ -444,7 +437,7 @@ header h1 {
 }
 .btn-website:hover { background: #333; }
 .btn-call {
-  display: inline-block; padding: 6px 12px;
+  display: inline-block; padding: 11px 16px;
   background: #10B981; color: #fff;
   border-radius: 6px; text-decoration: none;
   font-size: 12px; font-weight: 600; white-space: nowrap;
@@ -464,14 +457,14 @@ header h1 {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.6);
-  border-radius: 14px;
+  border-radius: 8px;
   padding: 18px 16px; margin-bottom: 10px;
-  box-shadow: 0 2px 14px rgba(0, 78, 255, 0.09);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.06);
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .biz-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(0, 78, 255, 0.14);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.10);
 }
 .card-rank-name {
   display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
@@ -482,7 +475,7 @@ header h1 {
 .card-rank.rank-3 { color: #F59E0B; font-weight: 600; }
 .card-name { font-size: 16px; font-weight: 700; }
 .card-location { font-size: 13px; color: #6B7280; margin-bottom: 6px; }
-.card-price { font-size: 24px; font-weight: 700; color: #0043C8; }
+.card-price { font-size: 24px; font-weight: 700; color: #1B4D3E; letter-spacing: -0.02em; }
 .card-price-sub { font-size: 13px; font-weight: 400; color: #9CA3AF; }
 .card-price-range { font-size: 12px; color: #9CA3AF; }
 .card-meta { font-size: 12px; color: #6B7280; margin: 4px 0; }
@@ -491,7 +484,7 @@ header h1 {
 /* 카드 시설 섹션 */
 .card-facilities {
   margin-top: 10px; padding-top: 10px;
-  border-top: 1px solid #F0F7FF;
+  border-top: 1px solid #EFF5F2;
 }
 .card-facilities-title {
   font-size: 11px; color: #9CA3AF; font-weight: 600;
@@ -505,7 +498,7 @@ header h1 {
 /* ===== UNVERIFIED SECTION ===== */
 .unverified-section {
   margin-top: 20px; background: #fff;
-  border-radius: 14px; overflow: hidden;
+  border-radius: 8px; overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 .unverified-section summary {
@@ -516,14 +509,14 @@ header h1 {
 .unverified-section summary::-webkit-details-marker { display: none; }
 .unverified-section summary::before { content: '▶  '; font-size: 10px; }
 .unverified-section[open] summary::before { content: '▼  '; }
-.unverified-section summary:hover { background: #F0F7FF; }
+.unverified-section summary:hover { background: #EFF5F2; }
 .unverified-section .card-list { display: flex; flex-direction: column; padding: 12px; }
 
 /* ===== EMPTY STATE ===== */
 .empty-state {
   text-align: center; padding: 60px 20px;
   color: #9CA3AF; background: #fff;
-  border-radius: 14px; margin-top: 12px;
+  border-radius: 8px; margin-top: 12px;
 }
 .empty-icon { font-size: 44px; margin-bottom: 12px; }
 
@@ -564,14 +557,14 @@ footer::before {
   position: absolute;
   top: -2px; left: 0; right: 0;
   height: 30px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 30'%3E%3Cpath fill='%231A1A2E' d='M0,10 C360,35 720,-5 1080,10 C1260,22 1380,18 1440,10 L1440,30 L0,30Z'/%3E%3C/svg%3E") bottom/cover no-repeat;
+  display: none;
 }
 .footer-disclaimer { color: #6B7280; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  header { padding: 36px 16px 52px; }
-  header h1 { font-size: 24px; }
+  header { padding: 56px 16px 56px; }
+  header h1 { font-size: 28px; }
   .compare-table { display: none; }
   .card-list { display: flex; flex-direction: column; margin-top: 10px; }
   .result-summary { margin-top: 10px; }
@@ -603,3 +596,69 @@ footer::before {
   .card-list { display: none !important; }
   .unverified-section .card-list { display: flex !important; }
 }
+
+/* ===== 헤더 에디토리얼 추가 요소 ===== */
+.header-kicker {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 14px;
+}
+
+/* ===== 네비 로고 세리프 + 다크 ===== */
+.nav-logo {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1A1612 !important;
+  letter-spacing: -0.02em;
+}
+
+/* ===== 가격 숫자 타불러 ===== */
+.price-cell,
+.card-price,
+.amount {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== 필터 섹션 배경 중립화 ===== */
+.filter-section {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-bottom: 1px solid #E8E4DE;
+}
+
+/* ===== 뷰 토글 배경 중립화 ===== */
+.view-toggle-wrap {
+  border-bottom: 1px solid #E8E4DE;
+}
+
+/* ===== 테이블 행 호버 뉴트럴 ===== */
+.compare-table tbody tr:hover { background: #F7F5F2; }
+.compare-table td { border-bottom: 1px solid #F0EDE8; }
+
+/* ===== 체크리스트 아이템 ===== */
+.checklist-item {
+  border-color: #E8E4DE;
+  background: #F9F7F4;
+}
+.checklist-item.essential {
+  border-color: #1B4D3E;
+  background: #F0F6F3;
+}
+.checklist-item.essential .ci-label { color: #1B4D3E; }
+
+/* ===== 결과 요약 텍스트 ===== */
+.result-summary { color: #7A7268; }
+
+/* ===== 푸터 개선 ===== */
+footer {
+  padding-top: 48px;
+}
+footer a { color: #6A6A5E; text-decoration: none; }
+footer a:hover { color: #F9F7F4; }
+
+/* ===== 검색창 포커스 ===== */
+.search-input:focus { border-color: #1B4D3E; box-shadow: 0 0 0 3px rgba(27,77,62,0.08); }
