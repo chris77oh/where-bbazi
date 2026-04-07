@@ -30,24 +30,7 @@ function generateAuthorization(method, path, query, secretKey, accessKey) {
 }
 
 const ALLOWED_ORIGIN = 'https://where-bbazi.kr';
-
-// ===== IP Rate Limiter (분당 5회) =====
-// 쿠팡파트너스 계정 어뷰징 감지 방지
-const rateLimitMap = new Map();
-const RATE_LIMIT = 5;        // 허용 횟수
-const RATE_WINDOW = 60_000;  // 윈도우: 1분(ms)
-
-function isRateLimited(ip) {
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip) || { count: 0, start: now };
-  if (now - entry.start > RATE_WINDOW) {
-    rateLimitMap.set(ip, { count: 1, start: now });
-    return false;
-  }
-  entry.count += 1;
-  rateLimitMap.set(ip, entry);
-  return entry.count > RATE_LIMIT;
-}
+const { isRateLimited } = require('./_rate-limit');
 
 module.exports = async function handler(req, res) {
   const origin = req.headers.origin;
@@ -61,9 +44,9 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   // Rate limit 체크
-  // x-real-ip: Vercel이 설정하는 신뢰 헤더 (클라이언트 조작 불가)
+  // Rate limit 체크 — Vercel KV 전역 공유 (멀티 인스턴스 대응)
   const ip = req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
-  if (isRateLimited(ip)) {
+  if (await isRateLimited(ip, 5, 60_000)) {
     return res.status(429).json({ error: 'Too many requests' });
   }
 

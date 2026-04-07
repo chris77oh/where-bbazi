@@ -2,25 +2,7 @@
 // 환경변수 KMA_API_KEY 를 Vercel 대시보드에서 설정할 것
 
 const ALLOWED_ORIGIN = 'https://where-bbazi.kr';
-
-// ===== IP Rate Limiter (분당 10회) =====
-// Vercel serverless는 인스턴스 재시작 시 초기화됨 — 단순 남용 방지용
-const rateLimitMap = new Map();
-const RATE_LIMIT = 10;       // 허용 횟수
-const RATE_WINDOW = 60_000;  // 윈도우: 1분(ms)
-
-function isRateLimited(ip) {
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip) || { count: 0, start: now };
-  if (now - entry.start > RATE_WINDOW) {
-    // 윈도우 초과 → 리셋
-    rateLimitMap.set(ip, { count: 1, start: now });
-    return false;
-  }
-  entry.count += 1;
-  rateLimitMap.set(ip, entry);
-  return entry.count > RATE_LIMIT;
-}
+const { isRateLimited } = require('./_rate-limit');
 
 module.exports = async function handler(req, res) {
   const origin = req.headers.origin;
@@ -29,11 +11,9 @@ module.exports = async function handler(req, res) {
   }
   res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=300'); // 10분 캐시
 
-  // Rate limit 체크
-  // x-real-ip: Vercel이 설정하는 신뢰 헤더 (클라이언트 조작 불가)
-  // x-forwarded-for 첫 번째 값은 클라이언트가 스푸핑 가능하므로 사용 안 함
+  // Rate limit 체크 — Vercel KV 전역 공유 (멀티 인스턴스 대응)
   const ip = req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
-  if (isRateLimited(ip)) {
+  if (await isRateLimited(ip, 10, 60_000)) {
     return res.status(429).json({ error: 'Too many requests' });
   }
 
