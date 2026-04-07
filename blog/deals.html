@@ -427,12 +427,28 @@
     const API_URL = '/api/coupang-search';
     const containers = document.querySelectorAll('.live-products[data-keyword]');
 
+    function escHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function safeUrl(url) {
+      if (!url) return null;
+      const s = String(url).trim();
+      return /^https?:\/\//i.test(s) ? s : null;
+    }
+
     function formatPrice(price) {
       return Number(price).toLocaleString('ko-KR') + '원';
     }
 
     function renderProducts(container, products) {
-      if (!products || products.length === 0) return; // 결과 없으면 숨김 유지
+      if (!products || products.length === 0) return;
 
       let html = '<div class="live-products-title">실시간 인기 상품</div>';
       html += '<div class="live-grid">';
@@ -442,9 +458,13 @@
         if (p.isRocket) badges.push('<span class="lc-badge rocket">로켓배송</span>');
         if (p.isFreeShipping) badges.push('<span class="lc-badge free-ship">무료배송</span>');
 
-        html += '<a href="' + p.productUrl + '" target="_blank" rel="noopener" class="live-card">' +
-          '<img src="' + p.productImage + '" alt="' + p.productName.substring(0, 40) + '" loading="lazy">' +
-          '<div class="lc-name">' + p.productName + '</div>' +
+        const productUrl = safeUrl(p.productUrl);
+        const productImage = safeUrl(p.productImage);
+        if (!productUrl) return; // URL 검증 실패 시 해당 상품 스킵
+
+        html += '<a href="' + productUrl + '" target="_blank" rel="noopener noreferrer" class="live-card">' +
+          (productImage ? '<img src="' + productImage + '" alt="' + escHtml(String(p.productName || '').substring(0, 40)) + '" loading="lazy">' : '') +
+          '<div class="lc-name">' + escHtml(p.productName) + '</div>' +
           '<div class="lc-price">' + formatPrice(p.productPrice) + '</div>' +
           (badges.length > 0 ? '<div class="lc-badges">' + badges.join('') + '</div>' : '') +
           '</a>';

@@ -54,14 +54,16 @@ function changingTag(f) {
 
 function parkingText(p) {
   if (!p || !p.available) return '-';
-  return [p.capacity ? p.capacity + '대' : '', p.walk_minutes ? '도보 ' + p.walk_minutes + '분' : ''].filter(Boolean).join(' · ') || '가능';
+  return [p.capacity ? esc(p.capacity) + '대' : '', p.walk_minutes ? '도보 ' + esc(p.walk_minutes) + '분' : ''].filter(Boolean).join(' · ') || '가능';
 }
 
 function bookingBtn(b) {
   let btns = [];
-  if (b.naver_booking_url) btns.push(`<a href="${esc(b.naver_booking_url)}" target="_blank" rel="noopener" class="btn-booking">예약하기 →</a>`);
-  if (b.website_url) btns.push(`<a href="${esc(b.website_url)}" target="_blank" rel="noopener" class="btn-website">홈페이지</a>`);
-  if (b.phone) btns.push(`<a href="tel:${b.phone.replace(/[^0-9+]/g, '')}" class="btn-call">📞 전화</a>`);
+  const naverUrl = safeUrl(b.naver_booking_url);
+  const siteUrl = safeUrl(b.website_url);
+  if (naverUrl) btns.push(`<a href="${naverUrl}" target="_blank" rel="noopener noreferrer" class="btn-booking">예약하기 →</a>`);
+  if (siteUrl) btns.push(`<a href="${siteUrl}" target="_blank" rel="noopener noreferrer" class="btn-website">홈페이지</a>`);
+  if (b.phone) btns.push(`<a href="tel:${esc(b.phone.replace(/[^0-9+]/g, ''))}" class="btn-call">📞 전화</a>`);
   return btns.length ? btns.join('') : '<span class="no-link">준비중</span>';
 }
 
@@ -71,7 +73,13 @@ function rankClass(i) {
 
 function esc(s) {
   if (!s) return '';
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function safeUrl(url) {
+  if (!url) return null;
+  const s = String(url).trim();
+  return /^https?:\/\//i.test(s) ? s : null;
 }
 
 function allFacilityTags(b) {
@@ -125,7 +133,7 @@ function buildCards(list, isUnverified) {
     }
 
     const facilityTags = [toiletTag(b.facilities), showerTag(b.facilities), changingTag(b.facilities),
-      (b.parking && b.parking.available) ? `<span class="ftag ftag-parking">🅿️ 주차${b.parking.capacity ? ' ' + b.parking.capacity + '대' : ''}</span>` : '',
+      (b.parking && b.parking.available) ? `<span class="ftag ftag-parking">🅿️ 주차${b.parking.capacity ? ' ' + esc(b.parking.capacity) + '대' : ''}</span>` : '',
       pickupTag(b.pickup)
     ].filter(Boolean).join('');
 
@@ -136,7 +144,7 @@ function buildCards(list, isUnverified) {
       </div>
       <div class="card-location">📍 ${esc(b.region)} ${esc(b.city)}</div>
       ${priceBlock}
-      <div class="card-meta">${[b.min_people ? '최소 ' + b.min_people + '인' : '', b.hours || ''].filter(Boolean).join(' · ')}</div>
+      <div class="card-meta">${[b.min_people ? '최소 ' + esc(b.min_people) + '인' : '', esc(b.hours) || ''].filter(Boolean).join(' · ')}</div>
       ${b.price_note ? `<div class="card-note">💬 ${esc(b.price_note)}</div>` : ''}
       <div class="card-facilities">
         <div class="card-facilities-title">시설</div>

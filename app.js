@@ -237,7 +237,7 @@ function renderMap() {
       b.facilities?.toilet ? ({ building: '🏛️건물화장실', shared: '🚾공용화장실', portable: '🚽간이화장실' }[b.facilities.toilet] || '') : '',
       b.facilities?.shower ? (b.facilities.shower_type === 'free' ? '🚿샤워무료' : '🚿샤워유료') : '',
       b.facilities?.changing_room ? '👔탈의실' : '',
-      b.parking?.available ? '🅿️주차' + (b.parking.capacity ? ' ' + b.parking.capacity + '대' : '') : '',
+      b.parking?.available ? '🅿️주차' + (b.parking.capacity ? ' ' + escapeHtml(b.parking.capacity) + '대' : '') : '',
       b.pickup ? '🚌픽업' : ''
     ].filter(Boolean).join(' · ');
 
