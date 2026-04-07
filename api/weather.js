@@ -3,12 +3,37 @@
 
 const ALLOWED_ORIGIN = 'https://where-bbazi.kr';
 
+// ===== IP Rate Limiter (분당 10회) =====
+// Vercel serverless는 인스턴스 재시작 시 초기화됨 — 단순 남용 방지용
+const rateLimitMap = new Map();
+const RATE_LIMIT = 10;       // 허용 횟수
+const RATE_WINDOW = 60_000;  // 윈도우: 1분(ms)
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip) || { count: 0, start: now };
+  if (now - entry.start > RATE_WINDOW) {
+    // 윈도우 초과 → 리셋
+    rateLimitMap.set(ip, { count: 1, start: now });
+    return false;
+  }
+  entry.count += 1;
+  rateLimitMap.set(ip, entry);
+  return entry.count > RATE_LIMIT;
+}
+
 module.exports = async function handler(req, res) {
   const origin = req.headers.origin;
   if (origin === ALLOWED_ORIGIN) {
     res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
   }
   res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=300'); // 10분 캐시
+
+  // Rate limit 체크
+  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket?.remoteAddress || 'unknown';
+  if (isRateLimited(ip)) {
+    return res.status(429).json({ error: 'Too many requests' });
+  }
 
   const API_KEY = process.env.KMA_API_KEY;
   if (!API_KEY) {

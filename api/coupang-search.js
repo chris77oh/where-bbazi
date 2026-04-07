@@ -31,6 +31,24 @@ function generateAuthorization(method, path, query, secretKey, accessKey) {
 
 const ALLOWED_ORIGIN = 'https://where-bbazi.kr';
 
+// ===== IP Rate Limiter (분당 5회) =====
+// 쿠팡파트너스 계정 어뷰징 감지 방지
+const rateLimitMap = new Map();
+const RATE_LIMIT = 5;        // 허용 횟수
+const RATE_WINDOW = 60_000;  // 윈도우: 1분(ms)
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip) || { count: 0, start: now };
+  if (now - entry.start > RATE_WINDOW) {
+    rateLimitMap.set(ip, { count: 1, start: now });
+    return false;
+  }
+  entry.count += 1;
+  rateLimitMap.set(ip, entry);
+  return entry.count > RATE_LIMIT;
+}
+
 module.exports = async function handler(req, res) {
   const origin = req.headers.origin;
   if (origin === ALLOWED_ORIGIN) {
@@ -41,6 +59,12 @@ module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
+
+  // Rate limit 체크
+  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket?.remoteAddress || 'unknown';
+  if (isRateLimited(ip)) {
+    return res.status(429).json({ error: 'Too many requests' });
+  }
 
   const { keyword, limit = '3' } = req.query;
   if (!keyword) return res.status(400).json({ error: 'keyword parameter is required' });
