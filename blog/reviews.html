@@ -179,6 +179,22 @@
     ]
   };
 
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function safeUrl(url) {
+    if (!url) return null;
+    const s = String(url).trim();
+    return /^https?:\/\//i.test(s) ? s : null;
+  }
+
   function formatDate(d) {
     if (!d || d.length < 8) return '';
     return d.slice(0,4) + '.' + d.slice(4,6) + '.' + d.slice(6,8);
@@ -197,25 +213,26 @@
 
         const id = name.replace(/[^가-힣a-zA-Z0-9]/g, '_');
         html += `<div class="review-venue">
-          <div class="rv-header" onclick="toggleReview('${id}')">
+          <div class="rv-header" onclick="toggleReview('${escapeHtml(id)}')">
             <div>
-              <h4>${name}</h4>
-              <span class="rv-region">${region} · 리뷰 ${reviews.length}건</span>
+              <h4>${escapeHtml(name)}</h4>
+              <span class="rv-region">${escapeHtml(region)} · 리뷰 ${reviews.length}건</span>
             </div>
-            <span class="rv-toggle" id="toggle-${id}">▼ 펼치기</span>
+            <span class="rv-toggle" id="toggle-${escapeHtml(id)}">▼ 펼치기</span>
           </div>
-          <div class="rv-body" id="body-${id}">`;
+          <div class="rv-body" id="body-${escapeHtml(id)}">`;
 
         for (const r of reviews) {
+          const link = safeUrl(r.link);
           html += `<div class="rv-item">
-            <div class="rv-title"><a href="${r.link}" target="_blank" rel="noopener">${r.title}</a></div>
-            <div class="rv-desc">${r.description}</div>
-            <div class="rv-date">${formatDate(r.date)}</div>
+            <div class="rv-title">${link ? `<a href="${link}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.title)}</a>` : escapeHtml(r.title)}</div>
+            <div class="rv-desc">${escapeHtml(r.description)}</div>
+            <div class="rv-date">${escapeHtml(formatDate(r.date))}</div>
           </div>`;
         }
 
         const searchQuery = encodeURIComponent(name + ' 빠지 후기');
-        html += `<a href="https://search.naver.com/search.naver?where=blog&query=${searchQuery}" target="_blank" rel="noopener" class="rv-more">네이버에서 더 많은 리뷰 보기 →</a>`;
+        html += `<a href="https://search.naver.com/search.naver?where=blog&query=${searchQuery}" target="_blank" rel="noopener noreferrer" class="rv-more">네이버에서 더 많은 리뷰 보기 →</a>`;
         html += `</div></div>`;
       }
     }

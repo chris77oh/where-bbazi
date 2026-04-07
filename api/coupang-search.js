@@ -29,8 +29,13 @@ function generateAuthorization(method, path, query, secretKey, accessKey) {
   return `CEA algorithm=HmacSHA256, access-key=${accessKey}, signed-date=${datetime}, signature=${signature}`;
 }
 
+const ALLOWED_ORIGIN = 'https://where-bbazi.kr';
+
 module.exports = async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin;
+  if (origin === ALLOWED_ORIGIN) {
+    res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
@@ -41,9 +46,13 @@ module.exports = async function handler(req, res) {
   if (!keyword) return res.status(400).json({ error: 'keyword parameter is required' });
   if (!ACCESS_KEY || !SECRET_KEY) return res.status(500).json({ error: 'API keys not configured' });
 
+  // limit 파라미터 — 최소 1, 최대 10으로 제한 (API 비용 남용 방지)
+  const safeLimit = Math.min(Math.max(parseInt(limit) || 3, 1), 10);
+
   try {
-    const query = `keyword=${encodeURIComponent(keyword)}&limit=${limit}`;
+    const query = `keyword=${encodeURIComponent(keyword)}&limit=${safeLimit}`;
     const authorization = generateAuthorization('GET', PATH, query, SECRET_KEY, ACCESS_KEY);
+
 
     const fullUrl = `${DOMAIN}${PATH}?${query}`;
 
@@ -56,12 +65,11 @@ module.exports = async function handler(req, res) {
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      return res.status(response.status).json({ error: 'Coupang API failed', status: response.status, detail: errorText });
+      return res.status(502).json({ error: 'Upstream API error' }); // 내부 에러 상세 노출 제거
     }
 
     const data = await response.json();
-    const products = (data.data?.productData || []).slice(0, parseInt(limit)).map((item) => ({
+    const products = (data.data?.productData || []).slice(0, safeLimit).map((item) => ({
       productName: item.productName,
       productPrice: item.productPrice,
       productImage: item.productImage,
@@ -72,6 +80,6 @@ module.exports = async function handler(req, res) {
 
     return res.status(200).json({ success: true, keyword, count: products.length, products });
   } catch (err) {
-    return res.status(500).json({ error: 'Internal server error', message: err.message });
+    return res.status(500).json({ error: 'Internal server error' }); // err.message 노출 제거
   }
 };

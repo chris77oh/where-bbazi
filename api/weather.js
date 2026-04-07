@@ -1,9 +1,13 @@
 // Vercel Serverless Function — 기상청 초단기예보 프록시
 // 환경변수 KMA_API_KEY 를 Vercel 대시보드에서 설정할 것
 
+const ALLOWED_ORIGIN = 'https://where-bbazi.kr';
+
 module.exports = async function handler(req, res) {
-  // CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin;
+  if (origin === ALLOWED_ORIGIN) {
+    res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
+  }
   res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=300'); // 10분 캐시
 
   const API_KEY = process.env.KMA_API_KEY;
@@ -85,6 +89,6 @@ module.exports = async function handler(req, res) {
       data: results,
     });
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: 'Weather API error' }); // 내부 에러 상세 노출 제거
   }
 }

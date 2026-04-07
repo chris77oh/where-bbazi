@@ -1,3 +1,21 @@
+/* ===== 보안 유틸 ===== */
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function safeUrl(url) {
+  if (!url) return null;
+  const s = String(url).trim();
+  if (/^https?:\/\//i.test(s)) return s;
+  return null; // javascript:, data:, etc. 차단
+}
+
 /* ===== 상태 ===== */
 let allBusinesses = [];
 let currentRegion = '전체';
@@ -79,7 +97,7 @@ function toiletTag(f) {
     portable: ['ftag-toilet-portable', '🚽 간이화장실']
   };
   const [cls, label] = map[f.toilet] || ['ftag-none', '화장실 미확인'];
-  return `<span class="ftag ${cls}">${label}${f.toilet_note ? ' (' + f.toilet_note + ')' : ''}</span>`;
+  return `<span class="ftag ${cls}">${label}${f.toilet_note ? ' (' + escapeHtml(f.toilet_note) + ')' : ''}</span>`;
 }
 function showerTag(f) {
   if (f?.shower === null || f?.shower === undefined) return '';
@@ -92,7 +110,7 @@ function changingTag(f) {
 }
 function parkingTag(p) {
   if (!p?.available) return '<span class="ftag ftag-none">주차 미확인</span>';
-  const detail = [p.capacity ? p.capacity + '대' : '', p.walk_minutes ? '도보 ' + p.walk_minutes + '분' : ''].filter(Boolean).join(' · ');
+  const detail = [p.capacity ? escapeHtml(p.capacity) + '대' : '', p.walk_minutes ? '도보 ' + escapeHtml(p.walk_minutes) + '분' : ''].filter(Boolean).join(' · ');
   return `<span class="ftag ftag-parking">🅿️ 주차${detail ? ' ' + detail : ''}</span>`;
 }
 function pickupTag(pickup) {
@@ -103,15 +121,17 @@ function allFacilityTags(b) {
 }
 function parkingText(p) {
   if (!p?.available) return '-';
-  return [p.capacity ? p.capacity + '대' : '', p.walk_minutes ? '도보 ' + p.walk_minutes + '분' : ''].filter(Boolean).join(' · ') || '가능';
+  return [p.capacity ? escapeHtml(p.capacity) + '대' : '', p.walk_minutes ? '도보 ' + escapeHtml(p.walk_minutes) + '분' : ''].filter(Boolean).join(' · ') || '가능';
 }
 
 /* ===== 예약 버튼 ===== */
 function bookingBtn(b) {
   let btns = [];
-  if (b.naver_booking_url) btns.push(`<a href="${b.naver_booking_url}" target="_blank" rel="noopener" class="btn-booking">예약하기 →</a>`);
-  if (b.website_url) btns.push(`<a href="${b.website_url}" target="_blank" rel="noopener" class="btn-website">홈페이지</a>`);
-  if (b.phone) btns.push(`<a href="tel:${b.phone.replace(/[^0-9+]/g,'')}" class="btn-call">📞 전화</a>`);
+  const naverUrl = safeUrl(b.naver_booking_url);
+  const siteUrl = safeUrl(b.website_url);
+  if (naverUrl) btns.push(`<a href="${naverUrl}" target="_blank" rel="noopener noreferrer" class="btn-booking">예약하기 →</a>`);
+  if (siteUrl) btns.push(`<a href="${siteUrl}" target="_blank" rel="noopener noreferrer" class="btn-website">홈페이지</a>`);
+  if (b.phone) btns.push(`<a href="tel:${escapeHtml(b.phone.replace(/[^0-9+]/g,''))}" class="btn-call">📞 전화</a>`);
   return btns.length ? btns.join('') : '<span class="no-link">준비중</span>';
 }
 
@@ -131,9 +151,9 @@ function renderTable(list) {
 
     return `<tr>
       <td style="text-align:center;width:36px"><span class="${rankClass(i)}">${i + 1}</span></td>
-      <td><strong>${b.name}</strong>${lowestBadge}<br><span style="font-size:11px;color:#9CA3AF">${b.city}</span></td>
+      <td><strong>${escapeHtml(b.name)}</strong>${lowestBadge}<br><span style="font-size:11px;color:#9CA3AF">${escapeHtml(b.city)}</span></td>
       <td class="price-cell">${main}${range ? `<span class="price-range">${range}</span>` : ''}</td>
-      <td style="font-size:13px;color:#6B7280">${b.min_people ? b.min_people + '인 이상' : '-'}</td>
+      <td style="font-size:13px;color:#6B7280">${b.min_people ? escapeHtml(b.min_people) + '인 이상' : '-'}</td>
       <td><div class="facility-tags">${toiletTag(b.facilities)}${showerTag(b.facilities)}${changingTag(b.facilities)}</div></td>
       <td class="parking-info">${parkingText(b.parking)}${b.pickup ? '<br><span class="ftag ftag-pickup" style="margin-top:3px;display:inline-block">🚌 픽업</span>' : ''}</td>
       <td>${bookingBtn(b)}</td>
@@ -166,12 +186,12 @@ function renderCards(list, isUnverified) {
     return `<div class="biz-card">
       <div class="card-rank-name">
         ${!isUnverified ? `<span class="card-rank ${rankClass(i)}">${i + 1}</span>` : ''}
-        <span class="card-name">${b.name}</span>${lowestBadge}
+        <span class="card-name">${escapeHtml(b.name)}</span>${lowestBadge}
       </div>
-      <div class="card-location">📍 ${b.region} ${b.city}</div>
+      <div class="card-location">📍 ${escapeHtml(b.region)} ${escapeHtml(b.city)}</div>
       ${priceBlock}
-      <div class="card-meta">${[b.min_people ? '최소 ' + b.min_people + '인' : '', b.hours || ''].filter(Boolean).join(' · ')}</div>
-      ${b.price_note ? `<div class="card-note">💬 ${b.price_note}</div>` : ''}
+      <div class="card-meta">${[b.min_people ? '최소 ' + escapeHtml(b.min_people) + '인' : '', escapeHtml(b.hours) || ''].filter(Boolean).join(' · ')}</div>
+      ${b.price_note ? `<div class="card-note">💬 ${escapeHtml(b.price_note)}</div>` : ''}
       <div class="card-facilities">
         <div class="card-facilities-title">시설</div>
         <div class="facility-tags">${allFacilityTags(b)}</div>
@@ -221,11 +241,13 @@ function renderMap() {
       b.pickup ? '🚌픽업' : ''
     ].filter(Boolean).join(' · ');
 
+    const naverPlaceUrl = safeUrl(b.naver_place_url);
+    const websiteUrl = safeUrl(b.website_url);
     const popup = L.popup({ maxWidth: 220 }).setContent(`
-      <div class="map-popup-name">${b.name}${isLowest ? ' <span style="color:#FF6B00">🏷️최저가</span>' : ''}</div>
-      <div class="map-popup-price">${priceLabel} / 1인</div>
-      <div class="map-popup-info">${b.city}${b.price_note ? '<br>💬 ' + b.price_note : ''}${facilityLines ? '<br>' + facilityLines : ''}</div>
-      ${b.naver_place_url && b.naver_place_url !== '#' ? `<a href="${b.naver_place_url}" target="_blank" class="map-popup-link">네이버 →</a>` : (b.website_url ? `<a href="${b.website_url}" target="_blank" class="map-popup-link">홈페이지 →</a>` : '')}
+      <div class="map-popup-name">${escapeHtml(b.name)}${isLowest ? ' <span style="color:#FF6B00">🏷️최저가</span>' : ''}</div>
+      <div class="map-popup-price">${escapeHtml(priceLabel)} / 1인</div>
+      <div class="map-popup-info">${escapeHtml(b.city)}${b.price_note ? '<br>💬 ' + escapeHtml(b.price_note) : ''}${facilityLines ? '<br>' + facilityLines : ''}</div>
+      ${naverPlaceUrl ? `<a href="${naverPlaceUrl}" target="_blank" rel="noopener noreferrer" class="map-popup-link">네이버 →</a>` : (websiteUrl ? `<a href="${websiteUrl}" target="_blank" rel="noopener noreferrer" class="map-popup-link">홈페이지 →</a>` : '')}
     `);
 
     L.marker([b.lat, b.lng], { icon }).bindPopup(popup).addTo(leafletMap);
