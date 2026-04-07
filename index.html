@@ -29,7 +29,7 @@
 
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./blog/blog.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -53,22 +53,9 @@
     }
   }
   </script>
-  <!-- Google Analytics (GA4) -->
+  <!-- Analytics (GA4 + Clarity) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLJND9ESLF"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-VLJND9ESLF');
-  </script>
-  <!-- MS Clarity -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "w6ils0jawi");
-  </script>
+  <script src="/js/analytics.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4303876502707122" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -1326,23 +1313,11 @@
     <p class="footer-disclaimer">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
   </footer>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
   <script src="./data/data.js"></script>
   <script src="./app.js"></script>
 
   <!-- Scroll Reveal -->
-  <script>
-  (function(){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.biz-card, .compare-table, .checklist-item, .header-stats').forEach(function(el){
-      el.classList.add('reveal');
-      io.observe(el);
-    });
-  })();
-  </script>
+  <script src="/js/scroll-reveal.js"></script>
 </body>
 </html>

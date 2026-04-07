@@ -30,7 +30,9 @@ module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=300'); // 10분 캐시
 
   // Rate limit 체크
-  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket?.remoteAddress || 'unknown';
+  // x-real-ip: Vercel이 설정하는 신뢰 헤더 (클라이언트 조작 불가)
+  // x-forwarded-for 첫 번째 값은 클라이언트가 스푸핑 가능하므로 사용 안 함
+  const ip = req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
   if (isRateLimited(ip)) {
     return res.status(429).json({ error: 'Too many requests' });
   }

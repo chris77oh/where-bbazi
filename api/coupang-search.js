@@ -61,7 +61,8 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   // Rate limit 체크
-  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket?.remoteAddress || 'unknown';
+  // x-real-ip: Vercel이 설정하는 신뢰 헤더 (클라이언트 조작 불가)
+  const ip = req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
   if (isRateLimited(ip)) {
     return res.status(429).json({ error: 'Too many requests' });
   }
