@@ -1,11 +1,15 @@
 /**
- * 전역 Rate Limiter — Vercel KV 기반
+ * 전역 Rate Limiter — Upstash Redis 기반
  * 멀티 인스턴스 환경에서도 공유 카운터로 정확하게 동작
  *
- * Vercel KV 없는 환경(로컬)에서는 인메모리 폴백 사용
+ * 필요 환경변수 (Vercel 대시보드):
+ *   UPSTASH_REDIS_REST_URL
+ *   UPSTASH_REDIS_REST_TOKEN
+ *
+ * Upstash 없는 환경(로컬)에서는 인메모리 폴백 사용
  */
 
-// 인메모리 폴백 (로컬 개발용)
+// 인메모리 폴백 (로컬 개발 / Upstash 미연결 시)
 const fallbackMap = new Map();
 
 async function isRateLimited(ip, limit, windowMs) {
@@ -13,25 +17,21 @@ async function isRateLimited(ip, limit, windowMs) {
   const now = Date.now();
 
   try {
-    const { kv } = require('@vercel/kv');
+    const { Redis } = require('@upstash/redis');
+    const redis = new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    });
 
-    // KV에서 현재 카운트 조회
-    const data = await kv.get(key);
-
-    if (!data || now - data.start > windowMs) {
-      // 윈도우 초과 또는 첫 요청 → 리셋
-      await kv.set(key, { count: 1, start: now }, { px: windowMs });
-      return false;
+    // INCR + 첫 요청이면 TTL 설정 (원자적 카운터)
+    const count = await redis.incr(key);
+    if (count === 1) {
+      await redis.pexpire(key, windowMs); // 윈도우 만료 설정
     }
-
-    if (data.count >= limit) return true;
-
-    // 카운트 증가
-    await kv.set(key, { count: data.count + 1, start: data.start }, { px: windowMs - (now - data.start) });
-    return false;
+    return count > limit;
 
   } catch {
-    // KV 없는 환경 → 인메모리 폴백
+    // Upstash 미연결 → 인메모리 폴백
     const entry = fallbackMap.get(key) || { count: 0, start: now };
     if (now - entry.start > windowMs) {
       fallbackMap.set(key, { count: 1, start: now });

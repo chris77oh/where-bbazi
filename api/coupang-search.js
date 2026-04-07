@@ -32,6 +32,21 @@ function generateAuthorization(method, path, query, secretKey, accessKey) {
 const ALLOWED_ORIGIN = 'https://where-bbazi.kr';
 const { isRateLimited } = require('./_rate-limit');
 
+// ===== 키워드 화이트리스트 =====
+// deals.html에서 실제로 사용하는 키워드만 허용 — 임의 키워드로 API 남용 차단
+const ALLOWED_KEYWORDS = new Set([
+  '방수팩 IPX8 목걸이',
+  '래쉬가드 세트 상하의',
+  '아쿠아슈즈 미끄럼방지',
+  '방수 선크림 SPF50',
+  '액션캠 방수',
+  '방수 셀카봉 플로팅',
+]);
+
+function isAllowedKeyword(keyword) {
+  return ALLOWED_KEYWORDS.has(keyword);
+}
+
 module.exports = async function handler(req, res) {
   const origin = req.headers.origin;
   if (origin === ALLOWED_ORIGIN) {
@@ -52,6 +67,7 @@ module.exports = async function handler(req, res) {
 
   const { keyword, limit = '3' } = req.query;
   if (!keyword) return res.status(400).json({ error: 'keyword parameter is required' });
+  if (!isAllowedKeyword(keyword)) return res.status(403).json({ error: 'keyword not allowed' });
   if (!ACCESS_KEY || !SECRET_KEY) return res.status(500).json({ error: 'API keys not configured' });
 
   // limit 파라미터 — 최소 1, 최대 10으로 제한 (API 비용 남용 방지)
