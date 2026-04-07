@@ -155,30 +155,54 @@ function buildCards(list, isUnverified) {
   }).join('\n');
 }
 
+/* ===== nesting-aware div 내용 교체 헬퍼 ===== */
+/**
+ * id="containerId" 를 가진 <div>의 내용을 newContent로 교체.
+ * 중첩 <div>를 카운트해서 정확한 닫힘 태그를 찾으므로
+ * build.js를 여러 번 실행해도 안전.
+ */
+function replaceContainerContent(html, containerId, newContent, indent) {
+  const marker = `id="${containerId}"`;
+  const markerIdx = html.indexOf(marker);
+  if (markerIdx === -1) throw new Error(`Container #${containerId} not found`);
+
+  // 여는 태그의 '>' 위치 찾기
+  const openEnd = html.indexOf('>', markerIdx) + 1;
+
+  // 닫히는 </div> 위치를 depth 카운팅으로 탐색
+  let depth = 1;
+  let i = openEnd;
+  while (i < html.length && depth > 0) {
+    if (html[i] === '<') {
+      if (html.startsWith('</div', i)) {
+        depth--;
+        if (depth === 0) break;
+      } else if (html.startsWith('<div', i)) {
+        depth++;
+      }
+    }
+    i++;
+  }
+  if (depth !== 0) throw new Error(`No matching </div> for #${containerId}`);
+
+  return html.substring(0, openEnd) + '\n' + newContent + '\n' + indent + html.substring(i);
+}
+
 /* ===== index.html에 삽입 ===== */
 let html = fs.readFileSync(indexPath, 'utf8');
 
 // tableContainer 내부 교체
 const tableHtml = buildTable(verified);
-html = html.replace(
-  /(<div id="tableContainer">)([\s\S]*?)(<\/div>)/,
-  `$1\n${tableHtml}\n      $3`
-);
+html = replaceContainerContent(html, 'tableContainer', tableHtml, '      ');
 
 // cardContainer 내부 교체
 const cardHtml = buildCards(verified, false);
-html = html.replace(
-  /(<div class="card-list" id="cardContainer">)([\s\S]*?)(<\/div>)/,
-  `$1\n${cardHtml}\n      $3`
-);
+html = replaceContainerContent(html, 'cardContainer', cardHtml, '      ');
 
 // unverifiedContainer 내부 교체
 if (unverified.length > 0) {
   const unverifiedCardHtml = buildCards(unverified, true);
-  html = html.replace(
-    /(<div class="card-list" id="unverifiedContainer">)([\s\S]*?)(<\/div>)/,
-    `$1\n${unverifiedCardHtml}\n        $3`
-  );
+  html = replaceContainerContent(html, 'unverifiedContainer', unverifiedCardHtml, '        ');
   // unverifiedSection 표시 + summary 텍스트
   html = html.replace(
     /(<details class="unverified-section" id="unverifiedSection") style="display:none"/,
