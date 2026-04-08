@@ -233,4 +233,70 @@ fs.writeFileSync(indexPath, html, 'utf8');
 // data.js도 동기화
 fs.writeFileSync(dataJsPath, 'const BBAZI_DATA = ' + JSON.stringify(json, null, 2) + ';\n', 'utf8');
 
-console.log(`✅ 빌드 완료: ${verified.length}개 업체 테이블 + ${unverified.length}개 미확인 업체 삽입됨`);
+console.log(`✅ index.html 빌드 완료: ${verified.length}개 업체 테이블 + ${unverified.length}개 미확인 업체 삽입됨`);
+
+/* ===== reviews.html 정적화 ===== */
+const reviewsDataPath = path.join(__dirname, 'data', 'blog_reviews.json');
+const reviewsHtmlPath = path.join(__dirname, 'blog', 'reviews.html');
+
+const reviewsJson = JSON.parse(fs.readFileSync(reviewsDataPath, 'utf8'));
+
+const venueOrder = {
+  '가평': [
+    '캠프통포레스트', '아토믹 워터파크 수상레저', '이비자 수상레저', '아이언 수상레저',
+    '크라운 수상레저', '선셋740 수상레저', '아레나 수상레저', '워터플레이 수상레저', '빠져수상레저&글램핑',
+    '리버포인트 수상레저', '클럽비발디 수상레저', '알로하다이노 워터파크', '클로버 수상레저'
+  ],
+  '양평': ['토마토 수상레저'],
+  '춘천': [
+    '나루 수상레저', '북한강 포시즌 수상레저', '비버네선착장', '블루샤크 수상레저',
+    '스피드존 수상레저', '힐링브릿지 수상레저', '칸 수상레저', '놀자수상레저',
+    '리버팰리스 수상레저'
+  ]
+};
+
+function formatDate(d) {
+  if (!d || d.length < 8) return '';
+  return d.slice(0, 4) + '.' + d.slice(4, 6) + '.' + d.slice(6, 8);
+}
+
+function buildReviewsHtml(data) {
+  let out = '';
+  for (const [region, venues] of Object.entries(venueOrder)) {
+    out += `  <div class="region-divider">${esc(region)}</div>\n`;
+    for (const name of venues) {
+      const reviews = data.reviews[name];
+      if (!reviews || reviews.length === 0) continue;
+      const id = name.replace(/[^가-힣a-zA-Z0-9]/g, '_');
+      const searchQuery = encodeURIComponent(name + ' 빠지 후기');
+
+      out += `  <div class="review-venue">\n`;
+      out += `    <div class="rv-header" onclick="toggleReview('${esc(id)}')">\n`;
+      out += `      <div><h4>${esc(name)}</h4><span class="rv-region">${esc(region)} · 리뷰 ${reviews.length}건</span></div>\n`;
+      out += `      <span class="rv-toggle" id="toggle-${esc(id)}">▲ 접기</span>\n`;
+      out += `    </div>\n`;
+      // open 클래스: 정적 빌드에서 Googlebot이 콘텐츠를 볼 수 있도록 펼침 상태로 시작
+      out += `    <div class="rv-body open" id="body-${esc(id)}">\n`;
+      for (const r of reviews) {
+        const link = safeUrl(r.link);
+        out += `      <div class="rv-item">\n`;
+        out += `        <div class="rv-title">${link ? `<a href="${link}" target="_blank" rel="noopener noreferrer">${esc(r.title)}</a>` : esc(r.title)}</div>\n`;
+        out += `        <div class="rv-desc">${esc(r.description)}</div>\n`;
+        out += `        <div class="rv-date">${esc(formatDate(r.date))}</div>\n`;
+        out += `      </div>\n`;
+      }
+      out += `      <a href="https://search.naver.com/search.naver?where=blog&query=${searchQuery}" target="_blank" rel="noopener noreferrer" class="rv-more">네이버에서 더 많은 리뷰 보기 →</a>\n`;
+      out += `    </div>\n`;
+      out += `  </div>\n`;
+    }
+  }
+  return out;
+}
+
+let reviewsHtml = fs.readFileSync(reviewsHtmlPath, 'utf8');
+const reviewsContent = buildReviewsHtml(reviewsJson);
+reviewsHtml = replaceContainerContent(reviewsHtml, 'reviewContainer', reviewsContent, '    ');
+fs.writeFileSync(reviewsHtmlPath, reviewsHtml, 'utf8');
+
+const totalReviews = Object.values(reviewsJson.reviews || {}).reduce((s, r) => s + r.length, 0);
+console.log(`✅ reviews.html 정적화 완료: ${Object.keys(reviewsJson.reviews || {}).length}개 업체, ${totalReviews}건 리뷰 삽입됨`);
